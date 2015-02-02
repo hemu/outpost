@@ -1,8 +1,13 @@
 'use strict'
 
 angular.module('dominionReplayApp')
+.factory('mySocket', function (socketFactory) {
+  return socketFactory({
+    url: 'http://localhost:3000/echo'
+  });
+})
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-  // $urlRouterProvider.otherwise("/replay/1");
+  $urlRouterProvider.otherwise("/replay/1");
   $stateProvider
     .state('replay', {
       url: "/replay/:turn",
@@ -10,28 +15,33 @@ angular.module('dominionReplayApp')
       controller: 'ReplayController'
     });
 }])
-.factory('mySocket', function (socketFactory) {
-  return socketFactory({
-    url: 'http://localhost:3000/echo'
-  });
-})
-.controller('ReplayController', ['$scope', '$stateParams', 'mySocket', function($scope, $stateParams, mySocket) {
+.controller('ReplayController', ['$scope', '$state', '$stateParams', 'mySocket', 
+                                  function($scope, $state, $stateParams, mySocket) {
   $scope.message = 'Hello';
+  if(mySocket.socket.readyState == SockJS.OPEN){
+    mySocket.send(JSON.stringify({turn: $stateParams.turn}));
+  }
+  console.log("--- Showing Turn " + $stateParams.turn + " ---");
   mySocket.setHandler('open', function() {
     console.log("opened event");
-    mySocket.send("gonna make a change")
+    mySocket.send(JSON.stringify({turn: $stateParams.turn}));
   });
   mySocket.setHandler('message', function(msg) {
-    console.log("server sent a message");
+    console.log("server sent a message:");
     console.log(msg);
-    console.log(msg.data);
   });
-  console.log("sent socket msg");
   $scope.prevTurn = function(){
-    console.log("prev turn button pressed");
+    var curTurn = parseInt($stateParams.turn)
+    var prevTurn = curTurn - 1
+    if(prevTurn > 0){
+      $state.transitionTo('replay', {turn: prevTurn});
+    }
   };
   $scope.nextTurn = function(){
-    console.log("next turn button pressed");
+    var curTurn = parseInt($stateParams.turn)
+    var nextTurn = curTurn + 1
+    $state.transitionTo('replay', {turn: nextTurn});
+    // $stateProvider.go('replay')
   };
 }]);
 

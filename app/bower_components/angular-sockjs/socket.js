@@ -44,7 +44,8 @@ angular.module('bd.sockjs', [])
           },
           close: function () {
             return socket.close.apply(socket, arguments);
-          }
+          },
+          socket: socket,
         };
 
         return wrappedSocket;
