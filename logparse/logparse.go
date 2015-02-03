@@ -27,7 +27,32 @@ var rxDiscard, _ = regexp.Compile(".*discards.*$")
 var rxTurn, _ = regexp.Compile(".*turn.*$")
 var rxNumCards, _ = regexp.Compile("^.*[0-9] .*$")
 
-func ParseLog(fileName string) {
+type event struct {
+	player string
+	action string
+	cards  []card.CardSet
+}
+
+type turn struct {
+	player string
+	events []event
+}
+
+type Game struct {
+	logFile string
+	players []string
+	supply  []card.CardSet
+	turns   []turn
+	rating  string
+	winner  string
+}
+
+// returns Game
+// Game contains a slice of []turns
+// each turn is  a slice of []event
+// an event has a player, action, and cards []card.Card
+func ParseLog(fileName string) Game {
+	fileName = fileName
 	log.Print("Parsing log: ", fileName)
 	file, err := os.Open(fileName)
 	check(err)
@@ -36,15 +61,22 @@ func ParseLog(fileName string) {
 	reader := bufio.NewReader(file)
 	scanner := bufio.NewScanner(reader)
 
+	game := Game{logFile: fileName}
+
 	for scanner.Scan() {
-		parseLine(scanner.Text())
+		parseLine(scanner.Text(), game)
 	}
+	return game
 }
 
-func parseLine(text string) {
+func parseLine(text string, game Game) {
 	switch {
 	case rxSupply.MatchString(text):
-		handleSupply(text)
+		supplyCards := handleSupply(text)
+		game.supply = supplyCards
+
+		// player draws
+		// event: action is 'draw'
 	case rxDraw.MatchString(text):
 		handleDraw(text)
 	case rxPlay.MatchString(text):
@@ -61,17 +93,16 @@ func parseLine(text string) {
 	}
 }
 
-func handleSupply(text string) {
-	fmt.Println("using supply cards")
+func handleSupply(text string) []card.CardSet {
 	cards := parseCards(strings.Split(text, "cards:")[1])
-	fmt.Println(cards)
+	return cards
 }
 
-func handleDraw(text string) {
+func handleDraw(text string) []card.CardSet {
 	player, cardsText := parseAction(text, "draws")
 	fmt.Printf("%v draws cards", player)
 	cards := parseCards(cardsText)
-	fmt.Println(cards)
+	return cards
 }
 
 func handlePlay(text string) {
@@ -97,13 +128,13 @@ func handleTurn(text string) {
 
 }
 
-// returns slice of CardGroups, can parse both
+// returns slice of CardSets, can parse both
 // Copper, Copper, Copper, Copper, Estate
 // 2 Copper, 1 Gold, 1 Silver
-func parseCards(text string) []card.CardGroup {
+func parseCards(text string) []card.CardSet {
 	cardTextList := strings.Split(text, ",")
-	cardGroups := []card.CardGroup{}
-	var cardGroup card.CardGroup
+	cardGroups := []card.CardSet{}
+	var cardGroup card.CardSet
 	for _, cardText := range cardTextList {
 		cardText := strings.TrimSpace(cardText)
 		if rxNumCards.MatchString(cardText) {
@@ -111,9 +142,9 @@ func parseCards(text string) []card.CardGroup {
 			num, err := strconv.Atoi(cardWithNum[0])
 			check(err)
 			cardText = strings.TrimSpace(cardWithNum[1])
-			cardGroup = card.CardGroup{Num: num, Card: card.CardList[cardText]}
+			cardGroup = card.CardSet{Num: num, Card: card.CardFactory[cardText]}
 		} else {
-			cardGroup = card.CardGroup{Num: 1, Card: card.CardList[cardText]}
+			cardGroup = card.CardSet{Num: 1, Card: card.CardFactory[cardText]}
 		}
 		cardGroups = append(cardGroups, cardGroup)
 	}

@@ -14,7 +14,7 @@ const (
 	CURSE
 )
 
-var CardList = map[string]Card{
+var CardFactory = map[string]Card{
 	"Chapel":          {Name: "Chapel", Cost: 2, Ctype: ACTION},
 	"Courtyard":       {Name: "Courtyard", Cost: 2, Ctype: ACTION},
 	"Haven":           {Name: "Haven", Cost: 2, Ctype: ACTION},
@@ -40,7 +40,7 @@ type Card struct {
 	Ctype CardType
 }
 
-type CardGroup struct {
+type CardSet struct {
 	Num  int
 	Card Card
 }
