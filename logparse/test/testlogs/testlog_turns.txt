@@ -2,17 +2,17 @@
 Supply cards: Chapel, Courtyard, Haven, Fishing Village, Village, Warehouse, Moneylender, Monument, Navigator, Bank, Copper, Silver, Gold, Estate, Duchy, Province, Curse
 Rating system: pro
 sadpuppyfarm - starting cards: Estate, Estate, Estate, Copper, Copper, Copper, Copper, Copper, Copper, Copper
-DoeADear - starting cards: Estate, Estate, Estate, Copper, Copper, Copper, Copper, Copper, Copper, Copper
+stanleygoodspeed - starting cards: Estate, Estate, Estate, Copper, Copper, Copper, Copper, Copper, Copper, Copper
 sadpuppyfarm - shuffles deck
-DoeADear - shuffles deck
+stanleygoodspeed - shuffles deck
 sadpuppyfarm - draws Estate, Copper, Estate, Copper, Copper
-DoeADear - draws Estate, Estate, Copper, Copper, Copper
+stanleygoodspeed - draws Estate, Estate, Copper, Copper, Copper
 
----------- DoeADear: turn 1 ----------
-DoeADear - plays 3 Copper
-DoeADear - buys Warehouse
-DoeADear - gains Warehouse
-DoeADear - draws Copper, Copper, Estate, Copper, Copper
+---------- stanleygoodspeed: turn 1 ----------
+stanleygoodspeed - plays 3 Copper
+stanleygoodspeed - buys Warehouse
+stanleygoodspeed - gains Warehouse
+stanleygoodspeed - draws Copper, Copper, Estate, Copper, Copper
  
 ---------- sadpuppyfarm: turn 1 ----------
 sadpuppyfarm - plays 3 Copper
@@ -20,12 +20,12 @@ sadpuppyfarm - buys Chapel
 sadpuppyfarm - gains Chapel
 sadpuppyfarm - draws Copper, Copper, Copper, Copper, Estate
  
----------- DoeADear: turn 2 ----------
-DoeADear - plays 4 Copper
-DoeADear - buys Navigator
-DoeADear - gains Navigator
-DoeADear - shuffles deck
-DoeADear - draws Navigator, Estate, Copper, Copper, Copper
+---------- stanleygoodspeed: turn 2 ----------
+stanleygoodspeed - plays 4 Copper
+stanleygoodspeed - buys Navigator
+stanleygoodspeed - gains Navigator
+stanleygoodspeed - shuffles deck
+stanleygoodspeed - draws Navigator, Estate, Copper, Copper, Copper
  
 ---------- sadpuppyfarm: turn 2 ----------
 sadpuppyfarm - plays 4 Copper
@@ -33,3 +33,59 @@ sadpuppyfarm - buys Silver
 sadpuppyfarm - gains Silver
 sadpuppyfarm - shuffles deck
 sadpuppyfarm - draws Copper, Copper, Copper, Chapel, Copper
+
+---------- stanleygoodspeed: turn 3 ----------
+stanleygoodspeed - plays Navigator
+stanleygoodspeed - looks at Estate, Estate, Copper, Copper, Warehouse
+stanleygoodspeed - places Estate on top of deck
+stanleygoodspeed - places Estate on top of deck
+stanleygoodspeed - places Copper on top of deck
+stanleygoodspeed - places Copper on top of deck
+stanleygoodspeed - places Warehouse on top of deck
+stanleygoodspeed - plays 3 Copper
+stanleygoodspeed - buys Navigator
+stanleygoodspeed - gains Navigator
+stanleygoodspeed - draws Warehouse, Copper, Copper, Estate, Estate
+ 
+---------- sadpuppyfarm: turn 3 ----------
+sadpuppyfarm - plays Chapel
+sadpuppyfarm - trashes Copper
+sadpuppyfarm - plays 3 Copper
+sadpuppyfarm - buys Fishing Village
+sadpuppyfarm - gains Fishing Village
+sadpuppyfarm - draws Copper, Estate, Estate, Estate, Copper
+ 
+---------- stanleygoodspeed: turn 4 ----------
+stanleygoodspeed - plays Warehouse
+stanleygoodspeed - draws Copper, Copper
+stanleygoodspeed - shuffles deck
+stanleygoodspeed - draws Copper
+stanleygoodspeed - discards Estate
+stanleygoodspeed - discards Estate
+stanleygoodspeed - discards Copper
+stanleygoodspeed - plays 4 Copper
+stanleygoodspeed - buys Fishing Village
+stanleygoodspeed - gains Fishing Village
+stanleygoodspeed - draws Copper, Navigator, Navigator, Copper, Estate
+ 
+---------- sadpuppyfarm: turn 4 ----------
+sadpuppyfarm - plays 2 Copper
+sadpuppyfarm - buys Haven
+sadpuppyfarm - gains Haven
+sadpuppyfarm - draws Silver, Copper
+sadpuppyfarm - shuffles deck
+sadpuppyfarm - draws Copper, Chapel, Haven
+ 
+---------- stanleygoodspeed: turn 5 ----------
+stanleygoodspeed - plays Navigator
+stanleygoodspeed - shuffles deck
+stanleygoodspeed - looks at Estate, Copper, Warehouse, Copper, Estate
+stanleygoodspeed - places Estate on top of deck
+stanleygoodspeed - places Estate on top of deck
+stanleygoodspeed - places Copper on top of deck
+stanleygoodspeed - places Copper on top of deck
+stanleygoodspeed - places Warehouse on top of deck
+stanleygoodspeed - plays 2 Copper
+stanleygoodspeed - buys Fishing Village
+stanleygoodspeed - gains Fishing Village
+stanleygoodspeed - draws Warehouse, Copper, Copper, Estate, Estate

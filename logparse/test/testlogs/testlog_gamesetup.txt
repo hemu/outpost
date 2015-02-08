@@ -2,8 +2,8 @@
 Supply cards: Chapel, Courtyard, Haven, Fishing Village, Village, Warehouse, Moneylender, Monument, Navigator, Bank, Copper, Silver, Gold, Estate, Duchy, Province, Curse
 Rating system: pro
 sadpuppyfarm - starting cards: Estate, Estate, Estate, Copper, Copper, Copper, Copper, Copper, Copper, Copper
-DoeADear - starting cards: Estate, Estate, Estate, Copper, Copper, Copper, Copper, Copper, Copper, Copper
+stanleygoodspeed - starting cards: Estate, Estate, Estate, Copper, Copper, Copper, Copper, Copper, Copper, Copper
 sadpuppyfarm - shuffles deck
-DoeADear - shuffles deck
+stanleygoodspeed - shuffles deck
 sadpuppyfarm - draws Estate, Copper, Estate, Copper, Copper
-DoeADear - draws Estate, Estate, Copper, Copper, Copper
+stanleygoodspeed - draws Estate, Estate, Copper, Copper, Copper

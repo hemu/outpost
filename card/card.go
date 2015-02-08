@@ -24,14 +24,14 @@ var CardFactory = map[string]Card{
 	"Moneylender":     {Name: "Moneylender", Cost: 4, Ctype: ACTION},
 	"Monument":        {Name: "Monument", Cost: 4, Ctype: ACTION},
 	"Navigator":       {Name: "Navigator", Cost: 4, Ctype: ACTION},
-	"Bank":            {Name: "Bank", Cost: 7, Ctype: ACTION},
-	"Copper":          {Name: "Copper", Cost: 0, Ctype: ACTION},
-	"Silver":          {Name: "Silver", Cost: 3, Ctype: ACTION},
-	"Gold":            {Name: "Gold", Cost: 6, Ctype: ACTION},
-	"Estate":          {Name: "Estate", Cost: 2, Ctype: ACTION},
-	"Duchy":           {Name: "Duchy", Cost: 5, Ctype: ACTION},
-	"Province":        {Name: "Province", Cost: 8, Ctype: ACTION},
-	"Curse":           {Name: "Curse", Cost: 0, Ctype: ACTION},
+	"Bank":            {Name: "Bank", Cost: 7, Ctype: TREASURE},
+	"Copper":          {Name: "Copper", Cost: 0, Ctype: TREASURE},
+	"Silver":          {Name: "Silver", Cost: 3, Ctype: TREASURE},
+	"Gold":            {Name: "Gold", Cost: 6, Ctype: TREASURE},
+	"Estate":          {Name: "Estate", Cost: 2, Ctype: VICTORY},
+	"Duchy":           {Name: "Duchy", Cost: 5, Ctype: VICTORY},
+	"Province":        {Name: "Province", Cost: 8, Ctype: VICTORY},
+	"Curse":           {Name: "Curse", Cost: 0, Ctype: CURSE},
 }
 
 type Card struct {

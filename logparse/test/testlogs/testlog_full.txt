@@ -2,17 +2,17 @@
 Supply cards: Chapel, Courtyard, Haven, Fishing Village, Village, Warehouse, Moneylender, Monument, Navigator, Bank, Copper, Silver, Gold, Estate, Duchy, Province, Curse
 Rating system: pro
 sadpuppyfarm - starting cards: Estate, Estate, Estate, Copper, Copper, Copper, Copper, Copper, Copper, Copper
-DoeADear - starting cards: Estate, Estate, Estate, Copper, Copper, Copper, Copper, Copper, Copper, Copper
+stanleygoodspeed - starting cards: Estate, Estate, Estate, Copper, Copper, Copper, Copper, Copper, Copper, Copper
 sadpuppyfarm - shuffles deck
-DoeADear - shuffles deck
+stanleygoodspeed - shuffles deck
 sadpuppyfarm - draws Estate, Copper, Estate, Copper, Copper
-DoeADear - draws Estate, Estate, Copper, Copper, Copper
+stanleygoodspeed - draws Estate, Estate, Copper, Copper, Copper
  
----------- DoeADear: turn 1 ----------
-DoeADear - plays 3 Copper
-DoeADear - buys Warehouse
-DoeADear - gains Warehouse
-DoeADear - draws Copper, Copper, Estate, Copper, Copper
+---------- stanleygoodspeed: turn 1 ----------
+stanleygoodspeed - plays 3 Copper
+stanleygoodspeed - buys Warehouse
+stanleygoodspeed - gains Warehouse
+stanleygoodspeed - draws Copper, Copper, Estate, Copper, Copper
  
 ---------- sadpuppyfarm: turn 1 ----------
 sadpuppyfarm - plays 3 Copper
@@ -20,12 +20,12 @@ sadpuppyfarm - buys Chapel
 sadpuppyfarm - gains Chapel
 sadpuppyfarm - draws Copper, Copper, Copper, Copper, Estate
  
----------- DoeADear: turn 2 ----------
-DoeADear - plays 4 Copper
-DoeADear - buys Navigator
-DoeADear - gains Navigator
-DoeADear - shuffles deck
-DoeADear - draws Navigator, Estate, Copper, Copper, Copper
+---------- stanleygoodspeed: turn 2 ----------
+stanleygoodspeed - plays 4 Copper
+stanleygoodspeed - buys Navigator
+stanleygoodspeed - gains Navigator
+stanleygoodspeed - shuffles deck
+stanleygoodspeed - draws Navigator, Estate, Copper, Copper, Copper
  
 ---------- sadpuppyfarm: turn 2 ----------
 sadpuppyfarm - plays 4 Copper
@@ -34,18 +34,18 @@ sadpuppyfarm - gains Silver
 sadpuppyfarm - shuffles deck
 sadpuppyfarm - draws Copper, Copper, Copper, Chapel, Copper
  
----------- DoeADear: turn 3 ----------
-DoeADear - plays Navigator
-DoeADear - looks at Estate, Estate, Copper, Copper, Warehouse
-DoeADear - places Estate on top of deck
-DoeADear - places Estate on top of deck
-DoeADear - places Copper on top of deck
-DoeADear - places Copper on top of deck
-DoeADear - places Warehouse on top of deck
-DoeADear - plays 3 Copper
-DoeADear - buys Navigator
-DoeADear - gains Navigator
-DoeADear - draws Warehouse, Copper, Copper, Estate, Estate
+---------- stanleygoodspeed: turn 3 ----------
+stanleygoodspeed - plays Navigator
+stanleygoodspeed - looks at Estate, Estate, Copper, Copper, Warehouse
+stanleygoodspeed - places Estate on top of deck
+stanleygoodspeed - places Estate on top of deck
+stanleygoodspeed - places Copper on top of deck
+stanleygoodspeed - places Copper on top of deck
+stanleygoodspeed - places Warehouse on top of deck
+stanleygoodspeed - plays 3 Copper
+stanleygoodspeed - buys Navigator
+stanleygoodspeed - gains Navigator
+stanleygoodspeed - draws Warehouse, Copper, Copper, Estate, Estate
  
 ---------- sadpuppyfarm: turn 3 ----------
 sadpuppyfarm - plays Chapel
@@ -55,18 +55,18 @@ sadpuppyfarm - buys Fishing Village
 sadpuppyfarm - gains Fishing Village
 sadpuppyfarm - draws Copper, Estate, Estate, Estate, Copper
  
----------- DoeADear: turn 4 ----------
-DoeADear - plays Warehouse
-DoeADear - draws Copper, Copper
-DoeADear - shuffles deck
-DoeADear - draws Copper
-DoeADear - discards Estate
-DoeADear - discards Estate
-DoeADear - discards Copper
-DoeADear - plays 4 Copper
-DoeADear - buys Fishing Village
-DoeADear - gains Fishing Village
-DoeADear - draws Copper, Navigator, Navigator, Copper, Estate
+---------- stanleygoodspeed: turn 4 ----------
+stanleygoodspeed - plays Warehouse
+stanleygoodspeed - draws Copper, Copper
+stanleygoodspeed - shuffles deck
+stanleygoodspeed - draws Copper
+stanleygoodspeed - discards Estate
+stanleygoodspeed - discards Estate
+stanleygoodspeed - discards Copper
+stanleygoodspeed - plays 4 Copper
+stanleygoodspeed - buys Fishing Village
+stanleygoodspeed - gains Fishing Village
+stanleygoodspeed - draws Copper, Navigator, Navigator, Copper, Estate
  
 ---------- sadpuppyfarm: turn 4 ----------
 sadpuppyfarm - plays 2 Copper
@@ -76,19 +76,19 @@ sadpuppyfarm - draws Silver, Copper
 sadpuppyfarm - shuffles deck
 sadpuppyfarm - draws Copper, Chapel, Haven
  
----------- DoeADear: turn 5 ----------
-DoeADear - plays Navigator
-DoeADear - shuffles deck
-DoeADear - looks at Estate, Copper, Warehouse, Copper, Estate
-DoeADear - places Estate on top of deck
-DoeADear - places Estate on top of deck
-DoeADear - places Copper on top of deck
-DoeADear - places Copper on top of deck
-DoeADear - places Warehouse on top of deck
-DoeADear - plays 2 Copper
-DoeADear - buys Fishing Village
-DoeADear - gains Fishing Village
-DoeADear - draws Warehouse, Copper, Copper, Estate, Estate
+---------- stanleygoodspeed: turn 5 ----------
+stanleygoodspeed - plays Navigator
+stanleygoodspeed - shuffles deck
+stanleygoodspeed - looks at Estate, Copper, Warehouse, Copper, Estate
+stanleygoodspeed - places Estate on top of deck
+stanleygoodspeed - places Estate on top of deck
+stanleygoodspeed - places Copper on top of deck
+stanleygoodspeed - places Copper on top of deck
+stanleygoodspeed - places Warehouse on top of deck
+stanleygoodspeed - plays 2 Copper
+stanleygoodspeed - buys Fishing Village
+stanleygoodspeed - gains Fishing Village
+stanleygoodspeed - draws Warehouse, Copper, Copper, Estate, Estate
  
 ---------- sadpuppyfarm: turn 5 ----------
 sadpuppyfarm - plays Haven
@@ -99,19 +99,19 @@ sadpuppyfarm - buys Silver
 sadpuppyfarm - gains Silver
 sadpuppyfarm - draws Copper, Copper, Estate, Fishing Village, Copper
  
----------- DoeADear: turn 6 ----------
-DoeADear - plays Warehouse
-DoeADear - draws Fishing Village, Copper, Copper
-DoeADear - discards Estate
-DoeADear - discards Estate
-DoeADear - discards Copper
-DoeADear - plays Fishing Village
-DoeADear - plays 3 Copper
-DoeADear - buys Fishing Village
-DoeADear - gains Fishing Village
-DoeADear - draws Copper
-DoeADear - shuffles deck
-DoeADear - draws Warehouse, Estate, Copper, Navigator
+---------- stanleygoodspeed: turn 6 ----------
+stanleygoodspeed - plays Warehouse
+stanleygoodspeed - draws Fishing Village, Copper, Copper
+stanleygoodspeed - discards Estate
+stanleygoodspeed - discards Estate
+stanleygoodspeed - discards Copper
+stanleygoodspeed - plays Fishing Village
+stanleygoodspeed - plays 3 Copper
+stanleygoodspeed - buys Fishing Village
+stanleygoodspeed - gains Fishing Village
+stanleygoodspeed - draws Copper
+stanleygoodspeed - shuffles deck
+stanleygoodspeed - draws Warehouse, Estate, Copper, Navigator
  
 ---------- sadpuppyfarm: turn 6 ----------
 sadpuppyfarm - duration Haven
@@ -126,24 +126,24 @@ sadpuppyfarm - draws Estate, Estate
 sadpuppyfarm - shuffles deck
 sadpuppyfarm - draws Haven, Chapel, Silver
  
----------- DoeADear: turn 7 ----------
-DoeADear - duration Fishing Village
-DoeADear - plays Warehouse
-DoeADear - draws Copper, Fishing Village, Estate
-DoeADear - discards Fishing Village
-DoeADear - discards Estate
-DoeADear - discards Estate
-DoeADear - plays Navigator
-DoeADear - looks at Copper, Copper, Fishing Village, Copper, Estate
-DoeADear - places Estate on top of deck
-DoeADear - places Copper on top of deck
-DoeADear - places Copper on top of deck
-DoeADear - places Copper on top of deck
-DoeADear - places Fishing Village on top of deck
-DoeADear - plays 3 Copper
-DoeADear - buys Gold
-DoeADear - gains Gold
-DoeADear - draws Fishing Village, Copper, Copper, Copper, Estate
+---------- stanleygoodspeed: turn 7 ----------
+stanleygoodspeed - duration Fishing Village
+stanleygoodspeed - plays Warehouse
+stanleygoodspeed - draws Copper, Fishing Village, Estate
+stanleygoodspeed - discards Fishing Village
+stanleygoodspeed - discards Estate
+stanleygoodspeed - discards Estate
+stanleygoodspeed - plays Navigator
+stanleygoodspeed - looks at Copper, Copper, Fishing Village, Copper, Estate
+stanleygoodspeed - places Estate on top of deck
+stanleygoodspeed - places Copper on top of deck
+stanleygoodspeed - places Copper on top of deck
+stanleygoodspeed - places Copper on top of deck
+stanleygoodspeed - places Fishing Village on top of deck
+stanleygoodspeed - plays 3 Copper
+stanleygoodspeed - buys Gold
+stanleygoodspeed - gains Gold
+stanleygoodspeed - draws Fishing Village, Copper, Copper, Copper, Estate
  
 ---------- sadpuppyfarm: turn 7 ----------
 sadpuppyfarm - duration Fishing Village
@@ -154,14 +154,14 @@ sadpuppyfarm - plays Chapel
 sadpuppyfarm - trashes Estate, Estate, Copper
 sadpuppyfarm - draws Copper, Silver, Copper, Silver, Copper
  
----------- DoeADear: turn 8 ----------
-DoeADear - plays Fishing Village
-DoeADear - plays 3 Copper
-DoeADear - buys Fishing Village
-DoeADear - gains Fishing Village
-DoeADear - draws Navigator, Copper
-DoeADear - shuffles deck
-DoeADear - draws Copper, Fishing Village, Gold
+---------- stanleygoodspeed: turn 8 ----------
+stanleygoodspeed - plays Fishing Village
+stanleygoodspeed - plays 3 Copper
+stanleygoodspeed - buys Fishing Village
+stanleygoodspeed - gains Fishing Village
+stanleygoodspeed - draws Navigator, Copper
+stanleygoodspeed - shuffles deck
+stanleygoodspeed - draws Copper, Fishing Village, Gold
  
 ---------- sadpuppyfarm: turn 8 ----------
 sadpuppyfarm - duration Haven
@@ -173,20 +173,20 @@ sadpuppyfarm - draws Copper
 sadpuppyfarm - shuffles deck
 sadpuppyfarm - draws Fishing Village, Silver, Chapel, Silver
  
----------- DoeADear: turn 9 ----------
-DoeADear - duration Fishing Village
-DoeADear - plays Fishing Village
-DoeADear - plays Navigator
-DoeADear - looks at Copper, Estate, Navigator, Warehouse, Estate
-DoeADear - places Estate on top of deck
-DoeADear - places Estate on top of deck
-DoeADear - places Copper on top of deck
-DoeADear - places Navigator on top of deck
-DoeADear - places Warehouse on top of deck
-DoeADear - plays 2 Copper, 1 Gold
-DoeADear - buys Province
-DoeADear - gains Province
-DoeADear - draws Warehouse, Navigator, Copper, Estate, Estate
+---------- stanleygoodspeed: turn 9 ----------
+stanleygoodspeed - duration Fishing Village
+stanleygoodspeed - plays Fishing Village
+stanleygoodspeed - plays Navigator
+stanleygoodspeed - looks at Copper, Estate, Navigator, Warehouse, Estate
+stanleygoodspeed - places Estate on top of deck
+stanleygoodspeed - places Estate on top of deck
+stanleygoodspeed - places Copper on top of deck
+stanleygoodspeed - places Navigator on top of deck
+stanleygoodspeed - places Warehouse on top of deck
+stanleygoodspeed - plays 2 Copper, 1 Gold
+stanleygoodspeed - buys Province
+stanleygoodspeed - gains Province
+stanleygoodspeed - draws Warehouse, Navigator, Copper, Estate, Estate
  
 ---------- sadpuppyfarm: turn 9 ----------
 sadpuppyfarm - plays Fishing Village
@@ -195,22 +195,22 @@ sadpuppyfarm - buys Gold
 sadpuppyfarm - gains Gold
 sadpuppyfarm - draws Gold, Haven, Copper, Copper, Silver
  
----------- DoeADear: turn 10 ----------
-DoeADear - duration Fishing Village
-DoeADear - plays Warehouse
-DoeADear - draws Copper, Copper, Copper
-DoeADear - discards Estate
-DoeADear - discards Estate
-DoeADear - discards Copper
-DoeADear - plays Navigator
-DoeADear - looks at Estate, Copper, Fishing Village, Fishing Village
-DoeADear - shuffles deck
-DoeADear - looks at Estate
-DoeADear - discards: Estate, Copper, Fishing Village, Fishing Village, Estate
-DoeADear - plays 3 Copper
-DoeADear - buys Gold
-DoeADear - gains Gold
-DoeADear - draws Estate, Province, Copper, Copper, Fishing Village
+---------- stanleygoodspeed: turn 10 ----------
+stanleygoodspeed - duration Fishing Village
+stanleygoodspeed - plays Warehouse
+stanleygoodspeed - draws Copper, Copper, Copper
+stanleygoodspeed - discards Estate
+stanleygoodspeed - discards Estate
+stanleygoodspeed - discards Copper
+stanleygoodspeed - plays Navigator
+stanleygoodspeed - looks at Estate, Copper, Fishing Village, Fishing Village
+stanleygoodspeed - shuffles deck
+stanleygoodspeed - looks at Estate
+stanleygoodspeed - discards: Estate, Copper, Fishing Village, Fishing Village, Estate
+stanleygoodspeed - plays 3 Copper
+stanleygoodspeed - buys Gold
+stanleygoodspeed - gains Gold
+stanleygoodspeed - draws Estate, Province, Copper, Copper, Fishing Village
  
 ---------- sadpuppyfarm: turn 10 ----------
 sadpuppyfarm - duration Fishing Village
@@ -223,14 +223,14 @@ sadpuppyfarm - gains Bank
 sadpuppyfarm - shuffles deck
 sadpuppyfarm - draws Copper, Chapel, Copper, Gold, Copper
  
----------- DoeADear: turn 11 ----------
-DoeADear - plays Fishing Village
-DoeADear - plays 2 Copper
-DoeADear - buys Fishing Village
-DoeADear - gains Fishing Village
-DoeADear - draws Copper, Gold, Navigator
-DoeADear - shuffles deck
-DoeADear - draws Copper, Gold
+---------- stanleygoodspeed: turn 11 ----------
+stanleygoodspeed - plays Fishing Village
+stanleygoodspeed - plays 2 Copper
+stanleygoodspeed - buys Fishing Village
+stanleygoodspeed - gains Fishing Village
+stanleygoodspeed - draws Copper, Gold, Navigator
+stanleygoodspeed - shuffles deck
+stanleygoodspeed - draws Copper, Gold
  
 ---------- sadpuppyfarm: turn 11 ----------
 sadpuppyfarm - duration Haven
@@ -242,15 +242,15 @@ sadpuppyfarm - buys Bank
 sadpuppyfarm - gains Bank
 sadpuppyfarm - draws Copper, Bank, Silver, Fishing Village, Silver
  
----------- DoeADear: turn 12 ----------
-DoeADear - duration Fishing Village
-DoeADear - plays Navigator
-DoeADear - looks at Province, Fishing Village, Estate, Copper, Copper
-DoeADear - discards: Province, Fishing Village, Estate, Copper, Copper
-DoeADear - plays 2 Copper, 2 Gold
-DoeADear - buys Province
-DoeADear - gains Province
-DoeADear - draws Estate, Navigator, Fishing Village, Fishing Village, Copper
+---------- stanleygoodspeed: turn 12 ----------
+stanleygoodspeed - duration Fishing Village
+stanleygoodspeed - plays Navigator
+stanleygoodspeed - looks at Province, Fishing Village, Estate, Copper, Copper
+stanleygoodspeed - discards: Province, Fishing Village, Estate, Copper, Copper
+stanleygoodspeed - plays 2 Copper, 2 Gold
+stanleygoodspeed - buys Province
+stanleygoodspeed - gains Province
+stanleygoodspeed - draws Estate, Navigator, Fishing Village, Fishing Village, Copper
  
 ---------- sadpuppyfarm: turn 12 ----------
 sadpuppyfarm - plays Fishing Village
@@ -262,20 +262,20 @@ sadpuppyfarm - draws Gold
 sadpuppyfarm - shuffles deck
 sadpuppyfarm - draws Province, Gold, Chapel, Copper
  
----------- DoeADear: turn 13 ----------
-DoeADear - plays Fishing Village
-DoeADear - plays Fishing Village
-DoeADear - plays Navigator
-DoeADear - looks at Copper, Estate, Copper, Fishing Village, Warehouse
-DoeADear - places Estate on top of deck
-DoeADear - places Copper on top of deck
-DoeADear - places Copper on top of deck
-DoeADear - places Fishing Village on top of deck
-DoeADear - places Warehouse on top of deck
-DoeADear - plays 1 Copper
-DoeADear - buys Fishing Village
-DoeADear - gains Fishing Village
-DoeADear - draws Warehouse, Fishing Village, Copper, Copper, Estate
+---------- stanleygoodspeed: turn 13 ----------
+stanleygoodspeed - plays Fishing Village
+stanleygoodspeed - plays Fishing Village
+stanleygoodspeed - plays Navigator
+stanleygoodspeed - looks at Copper, Estate, Copper, Fishing Village, Warehouse
+stanleygoodspeed - places Estate on top of deck
+stanleygoodspeed - places Copper on top of deck
+stanleygoodspeed - places Copper on top of deck
+stanleygoodspeed - places Fishing Village on top of deck
+stanleygoodspeed - places Warehouse on top of deck
+stanleygoodspeed - plays 1 Copper
+stanleygoodspeed - buys Fishing Village
+stanleygoodspeed - gains Fishing Village
+stanleygoodspeed - draws Warehouse, Fishing Village, Copper, Copper, Estate
  
 ---------- sadpuppyfarm: turn 13 ----------
 sadpuppyfarm - duration Fishing Village
@@ -284,20 +284,20 @@ sadpuppyfarm - buys Province
 sadpuppyfarm - gains Province
 sadpuppyfarm - draws Silver, Bank, Silver, Copper, Copper
  
----------- DoeADear: turn 14 ----------
-DoeADear - duration Fishing Village
-DoeADear - duration Fishing Village
-DoeADear - plays Fishing Village
-DoeADear - plays Warehouse
-DoeADear - shuffles deck
-DoeADear - draws Estate, Gold, Copper
-DoeADear - discards Estate
-DoeADear - discards Estate
-DoeADear - discards Copper
-DoeADear - plays 2 Copper, 1 Gold
-DoeADear - buys Province
-DoeADear - gains Province
-DoeADear - draws Estate, Fishing Village, Province, Navigator, Copper
+---------- stanleygoodspeed: turn 14 ----------
+stanleygoodspeed - duration Fishing Village
+stanleygoodspeed - duration Fishing Village
+stanleygoodspeed - plays Fishing Village
+stanleygoodspeed - plays Warehouse
+stanleygoodspeed - shuffles deck
+stanleygoodspeed - draws Estate, Gold, Copper
+stanleygoodspeed - discards Estate
+stanleygoodspeed - discards Estate
+stanleygoodspeed - discards Copper
+stanleygoodspeed - plays 2 Copper, 1 Gold
+stanleygoodspeed - buys Province
+stanleygoodspeed - gains Province
+stanleygoodspeed - draws Estate, Fishing Village, Province, Navigator, Copper
  
 ---------- sadpuppyfarm: turn 14 ----------
 sadpuppyfarm - plays 2 Silver, 2 Copper
@@ -308,20 +308,20 @@ sadpuppyfarm - draws Haven, Silver, Bank
 sadpuppyfarm - shuffles deck
 sadpuppyfarm - draws Province, Fishing Village
  
----------- DoeADear: turn 15 ----------
-DoeADear - duration Fishing Village
-DoeADear - plays Fishing Village
-DoeADear - plays Navigator
-DoeADear - looks at Fishing Village, Copper, Copper, Gold, Navigator
-DoeADear - places Fishing Village on top of deck
-DoeADear - places Copper on top of deck
-DoeADear - places Copper on top of deck
-DoeADear - places Gold on top of deck
-DoeADear - places Navigator on top of deck
-DoeADear - plays 1 Copper
-DoeADear - buys Duchy
-DoeADear - gains Duchy
-DoeADear - draws Navigator, Gold, Copper, Copper, Fishing Village
+---------- stanleygoodspeed: turn 15 ----------
+stanleygoodspeed - duration Fishing Village
+stanleygoodspeed - plays Fishing Village
+stanleygoodspeed - plays Navigator
+stanleygoodspeed - looks at Fishing Village, Copper, Copper, Gold, Navigator
+stanleygoodspeed - places Fishing Village on top of deck
+stanleygoodspeed - places Copper on top of deck
+stanleygoodspeed - places Copper on top of deck
+stanleygoodspeed - places Gold on top of deck
+stanleygoodspeed - places Navigator on top of deck
+stanleygoodspeed - plays 1 Copper
+stanleygoodspeed - buys Duchy
+stanleygoodspeed - gains Duchy
+stanleygoodspeed - draws Navigator, Gold, Copper, Copper, Fishing Village
  
 ---------- sadpuppyfarm: turn 15 ----------
 sadpuppyfarm - plays Fishing Village
@@ -334,18 +334,18 @@ sadpuppyfarm - buys Duchy
 sadpuppyfarm - gains Duchy
 sadpuppyfarm - draws Silver, Bank, Province, Gold, Copper
  
----------- DoeADear: turn 16 ----------
-DoeADear - duration Fishing Village
-DoeADear - plays Fishing Village
-DoeADear - plays Navigator
-DoeADear - looks at Fishing Village, Province, Copper
-DoeADear - shuffles deck
-DoeADear - looks at Estate, Navigator
-DoeADear - discards: Fishing Village, Province, Copper, Estate, Navigator
-DoeADear - plays 2 Copper, 1 Gold
-DoeADear - buys Province
-DoeADear - gains Province
-DoeADear - draws Province, Warehouse, Copper, Fishing Village, Province
+---------- stanleygoodspeed: turn 16 ----------
+stanleygoodspeed - duration Fishing Village
+stanleygoodspeed - plays Fishing Village
+stanleygoodspeed - plays Navigator
+stanleygoodspeed - looks at Fishing Village, Province, Copper
+stanleygoodspeed - shuffles deck
+stanleygoodspeed - looks at Estate, Navigator
+stanleygoodspeed - discards: Fishing Village, Province, Copper, Estate, Navigator
+stanleygoodspeed - plays 2 Copper, 1 Gold
+stanleygoodspeed - buys Province
+stanleygoodspeed - gains Province
+stanleygoodspeed - draws Province, Warehouse, Copper, Fishing Village, Province
  
 ---------- sadpuppyfarm: turn 16 ----------
 sadpuppyfarm - duration Fishing Village
@@ -356,19 +356,19 @@ sadpuppyfarm - buys Duchy
 sadpuppyfarm - gains Duchy
 sadpuppyfarm - draws Gold, Province, Copper, Silver, Chapel
  
----------- DoeADear: turn 17 ----------
-DoeADear - duration Fishing Village
-DoeADear - plays Fishing Village
-DoeADear - plays Warehouse
-DoeADear - draws Duchy, Fishing Village, Estate
-DoeADear - discards Duchy
-DoeADear - discards Province
-DoeADear - discards Estate
-DoeADear - plays Fishing Village
-DoeADear - plays 1 Copper
-DoeADear - buys Estate
-DoeADear - gains Estate
-DoeADear - draws Gold, Fishing Village, Copper, Copper, Copper
+---------- stanleygoodspeed: turn 17 ----------
+stanleygoodspeed - duration Fishing Village
+stanleygoodspeed - plays Fishing Village
+stanleygoodspeed - plays Warehouse
+stanleygoodspeed - draws Duchy, Fishing Village, Estate
+stanleygoodspeed - discards Duchy
+stanleygoodspeed - discards Province
+stanleygoodspeed - discards Estate
+stanleygoodspeed - plays Fishing Village
+stanleygoodspeed - plays 1 Copper
+stanleygoodspeed - buys Estate
+stanleygoodspeed - gains Estate
+stanleygoodspeed - draws Gold, Fishing Village, Copper, Copper, Copper
  
 ---------- sadpuppyfarm: turn 17 ----------
 sadpuppyfarm - plays 1 Gold, 1 Copper, 1 Silver
@@ -377,28 +377,28 @@ sadpuppyfarm - gains Duchy
 sadpuppyfarm - shuffles deck
 sadpuppyfarm - draws Chapel, Province, Gold, Haven, Copper
  
----------- DoeADear: turn 18 ----------
-DoeADear - duration Fishing Village
-DoeADear - duration Fishing Village
-DoeADear - plays Fishing Village
-DoeADear - plays 3 Copper, 1 Gold
-DoeADear - buys Province
-DoeADear - gains Province
-DoeADear - draws Estate
-DoeADear - shuffles deck
-DoeADear - draws Copper, Navigator, Province, Fishing Village
+---------- stanleygoodspeed: turn 18 ----------
+stanleygoodspeed - duration Fishing Village
+stanleygoodspeed - duration Fishing Village
+stanleygoodspeed - plays Fishing Village
+stanleygoodspeed - plays 3 Copper, 1 Gold
+stanleygoodspeed - buys Province
+stanleygoodspeed - gains Province
+stanleygoodspeed - draws Estate
+stanleygoodspeed - shuffles deck
+stanleygoodspeed - draws Copper, Navigator, Province, Fishing Village
  
 ------------ Game Over ------------
-DoeADear - cards: 6 Fishing Village, 2 Navigator, 1 Warehouse, 7 Copper, 2 Gold, 5 Province, 4 Estate, 1 Duchy
-DoeADear - victory point chips: 0
-DoeADear - total victory points: 37
-DoeADear - turns: 18
+stanleygoodspeed - cards: 6 Fishing Village, 2 Navigator, 1 Warehouse, 7 Copper, 2 Gold, 5 Province, 4 Estate, 1 Duchy
+stanleygoodspeed - victory point chips: 0
+stanleygoodspeed - total victory points: 37
+stanleygoodspeed - turns: 18
  
 sadpuppyfarm - cards: 1 Chapel, 1 Haven, 1 Fishing Village, 3 Copper, 3 Silver, 2 Gold, 2 Bank, 3 Province, 3 Duchy
 sadpuppyfarm - victory point chips: 0
 sadpuppyfarm - total victory points: 27
 sadpuppyfarm - turns: 17
  
-1st place: DoeADear
+1st place: stanleygoodspeed
 2nd place: sadpuppyfarm
  
