@@ -27,6 +27,9 @@ var rxGain, _ = regexp.Compile(".*gains.*$")
 var rxDiscard, _ = regexp.Compile(".*discards.*$")
 var rxTrash, _ = regexp.Compile(".*trashes.*$")
 var rxShuffle, _ = regexp.Compile(".*shuffles.*$")
+var rxPlaceOnDeck, _ = regexp.Compile(".*places.*on top of deck.*$")
+var rxLookAt, _ = regexp.Compile(".*looks.*$")
+
 var rxTurn, _ = regexp.Compile(".*turn.*$")
 var rxNumCards, _ = regexp.Compile("^.*[0-9] .*$")
 
@@ -88,6 +91,14 @@ func parseLine(text string, gBuilder *mGame.GameBuilder) {
 		player, cards := handleDiscard(text)
 		gBuilder.AddEvent(player, mGame.ACTION_DISCARD, cards)
 
+	case rxPlaceOnDeck.MatchString(text):
+		player, cards := handlePlaceOnDeck(text)
+		gBuilder.AddEvent(player, mGame.ACTION_PLACE_ON_DECK, cards)
+
+	case rxLookAt.MatchString(text):
+		player, cards := handleLookAt(text)
+		gBuilder.AddEvent(player, mGame.ACTION_LOOK_AT, cards)
+
 	case rxShuffle.MatchString(text):
 		player, _, err := parsePlayerWithAction(text, "shuffles")
 		if err != nil {
@@ -142,6 +153,30 @@ func handleGain(text string) (string, []mCard.CardSet) {
 
 func handleDiscard(text string) (string, []mCard.CardSet) {
 	return handleActionWithCards(text, "discards")
+}
+
+func handlePlaceOnDeck(text string) (string, []mCard.CardSet) {
+	player, actionText, err := parsePlayerWithAction(text, "places")
+	check(err)
+	cardName := strings.TrimSpace(strings.Split(actionText, " ")[0])
+	cardSet := mCard.CardSet{Num: 1, Card: mCard.CardFactory[cardName]}
+	cardSets := []mCard.CardSet{}
+	cardSets = append(cardSets, cardSet)
+	return player, cardSets
+}
+
+func handleLookAt(text string) (string, []mCard.CardSet) {
+	// player, actionText, err := parsePlayerWithAction(text, "looks at")
+	player, cardsText, err := parsePlayerWithAction(text, "looks at")
+	check(err)
+	cardTextList := strings.Split(cardsText, ",")
+	cardSets := []mCard.CardSet{}
+	for _, cardText := range cardTextList {
+		cardSet := mCard.CardSet{Num: 1,
+			Card: mCard.CardFactory[strings.TrimSpace(cardText)]}
+		cardSets = append(cardSets, cardSet)
+	}
+	return player, cardSets
 }
 
 func handleTrash(text string) (string, []mCard.CardSet) {

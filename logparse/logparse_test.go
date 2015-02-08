@@ -172,6 +172,57 @@ func TestEvent(t *testing.T) {
 	}
 }
 
+func TestHandlePlaceOnDeckCore(t *testing.T) {
+	text := "stanleygoodspeed - places Estate on top of deck"
+	player, cardSets := handlePlaceOnDeck(text)
+	if player != "stanleygoodspeed" {
+		t.Errorf("Expected player stanleygoodspeed but got %v", player)
+	}
+	if len(cardSets) != 1 {
+		t.Errorf("Expected 1 cardset but got %d", len(cardSets))
+	}
+	cardSet := cardSets[0]
+	if cardSet.Num != 1 {
+		t.Errorf("Expected 1 card but got %d", cardSet.Num)
+	}
+	if cardSet.Card.Name != "Estate" {
+		t.Errorf("Expected Estate but got %v", cardSet.Card.Name)
+	}
+}
+
+func TestLookAtCore(t *testing.T) {
+	text := "stanleygoodspeed - looks at Estate, Copper, Warehouse, Copper, Estate"
+	player, cardSets := handleLookAt(text)
+	if player != "stanleygoodspeed" {
+		t.Errorf("Expected player stanleygoodspeed but got %v", player)
+	}
+	if len(cardSets) != 5 {
+		t.Errorf("Expected 5 cardsets but got %d", len(cardSets))
+	}
+	for _, cardSet := range cardSets {
+		if cardSet.Num != 1 {
+			t.Errorf("Expected 1 card but got %d", cardSet.Num)
+		}
+	}
+	if len(cardSets) == 5 {
+		if cardSets[0].Card.Name != "Estate" {
+			t.Errorf("Expected Estate but got %v", cardSets[0].Card.Name)
+		}
+		if cardSets[1].Card.Name != "Copper" {
+			t.Errorf("Expected Copper but got %v", cardSets[1].Card.Name)
+		}
+		if cardSets[2].Card.Name != "Warehouse" {
+			t.Errorf("Expected Warehouse but got %v", cardSets[2].Card.Name)
+		}
+		if cardSets[3].Card.Name != "Copper" {
+			t.Errorf("Expected Copper but got %v", cardSets[3].Card.Name)
+		}
+		if cardSets[4].Card.Name != "Estate" {
+			t.Errorf("Expected Estate but got %v", cardSets[4].Card.Name)
+		}
+	}
+}
+
 func TestFullTurnGame(t *testing.T) {
 	game := ParseLog("test/testlogs/testlog_turns.txt")
 	game.PrintGame()
