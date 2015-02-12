@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	mCard "github.com/hmuar/dominion-replay/card"
-	mGame "github.com/hmuar/dominion-replay/game"
+	mHistory "github.com/hmuar/dominion-replay/history"
 	// "log"
 	"os"
 	"regexp"
@@ -19,6 +19,7 @@ func check(e error) {
 	}
 }
 
+var rxGameSetup, _ = regexp.Compile(".*Game Setup.*$")
 var rxSupply, _ = regexp.Compile("^Supply cards:.*$")
 var rxDraw, _ = regexp.Compile(".*draws.*$")
 var rxPlay, _ = regexp.Compile(".*plays.*$")
@@ -29,7 +30,6 @@ var rxTrash, _ = regexp.Compile(".*trashes.*$")
 var rxShuffle, _ = regexp.Compile(".*shuffles.*$")
 var rxPlaceOnDeck, _ = regexp.Compile(".*places.*on top of deck.*$")
 var rxLookAt, _ = regexp.Compile(".*looks.*$")
-
 var rxTurn, _ = regexp.Compile(".*turn.*$")
 var rxNumCards, _ = regexp.Compile("^.*[0-9] .*$")
 
@@ -37,7 +37,7 @@ var rxNumCards, _ = regexp.Compile("^.*[0-9] .*$")
 // Game contains a slice of []turns
 // each turn is  a slice of []event
 // an event has a player, action, and cards []mCard.Card
-func ParseLog(fileName string) mGame.Game {
+func ParseLog(fileName string) mHistory.History {
 	fileName = fileName
 	// log.Println("Parsing log: ", fileName)
 	file, err := os.Open(fileName)
@@ -47,15 +47,15 @@ func ParseLog(fileName string) mGame.Game {
 	reader := bufio.NewReader(file)
 	scanner := bufio.NewScanner(reader)
 
-	gBuilder := mGame.NewGameBuilder()
+	gBuilder := mHistory.NewHistoryBuilder()
 
 	for scanner.Scan() {
 		parseLine(scanner.Text(), &gBuilder)
 	}
-	return gBuilder.Game
+	return gBuilder.History
 }
 
-func parseLine(text string, gBuilder *mGame.GameBuilder) {
+func parseLine(text string, gBuilder *mHistory.HistoryBuilder) {
 	switch {
 	case rxSupply.MatchString(text):
 		supplyCards := handleSupply(text)
@@ -66,51 +66,59 @@ func parseLine(text string, gBuilder *mGame.GameBuilder) {
 		player, turnNum := handleTurn(text)
 		gBuilder.StartPlayerTurn(player, turnNum)
 
-		// player draws -- event: action is 'draw'
+	// player draws -- event: action 'draw'
 	case rxDraw.MatchString(text):
 		player, cards := handleDraw(text)
-		gBuilder.AddEvent(player, mGame.ACTION_DRAW, cards)
+		gBuilder.AddEvent(player, mHistory.ACTION_DRAW, cards)
 
-		// player plays -- event: action is 'play'
+	// player plays -- event: action 'play'
 	case rxPlay.MatchString(text):
 		player, cards := handlePlay(text)
-		gBuilder.AddEvent(player, mGame.ACTION_PLAY, cards)
+		gBuilder.AddEvent(player, mHistory.ACTION_PLAY, cards)
 
-		// player buys -- event: action is 'buy'
+	// player buys -- event: action 'buy'
 	case rxBuy.MatchString(text):
 		player, cards := handleBuy(text)
-		gBuilder.AddEvent(player, mGame.ACTION_BUY, cards)
+		gBuilder.AddEvent(player, mHistory.ACTION_BUY, cards)
 
-		// player gains -- event: action is 'gain'
+	// player gains -- event: action 'gain'
 	case rxGain.MatchString(text):
 		player, cards := handleGain(text)
-		gBuilder.AddEvent(player, mGame.ACTION_GAIN, cards)
+		gBuilder.AddEvent(player, mHistory.ACTION_GAIN, cards)
 
-		// player discards -- event: action is 'discard'
+	// player discards -- event: action 'discard'
 	case rxDiscard.MatchString(text):
 		player, cards := handleDiscard(text)
-		gBuilder.AddEvent(player, mGame.ACTION_DISCARD, cards)
+		gBuilder.AddEvent(player, mHistory.ACTION_DISCARD, cards)
 
+	// player places cards on top of dec - event: action 'place-on-deck'
 	case rxPlaceOnDeck.MatchString(text):
 		player, cards := handlePlaceOnDeck(text)
-		gBuilder.AddEvent(player, mGame.ACTION_PLACE_ON_DECK, cards)
+		gBuilder.AddEvent(player, mHistory.ACTION_PLACE_ON_DECK, cards)
 
+	// player looks at cards from deck - event: action 'look-at'
 	case rxLookAt.MatchString(text):
 		player, cards := handleLookAt(text)
-		gBuilder.AddEvent(player, mGame.ACTION_LOOK_AT, cards)
+		gBuilder.AddEvent(player, mHistory.ACTION_LOOK_AT, cards)
 
+	// player looks at cards from deck - event: action 'trash'
 	case rxShuffle.MatchString(text):
 		player, _, err := parsePlayerWithAction(text, "shuffles")
 		if err != nil {
 			check(err)
 		}
-		gBuilder.AddEvent(player, mGame.ACTION_SHUFFLE, []mCard.CardSet{})
+		gBuilder.AddEvent(player, mHistory.ACTION_SHUFFLE, []mCard.CardSet{})
 
 	// player discards -- event: action is 'discard'
 	case rxTrash.MatchString(text):
 		player, cards := handleTrash(text)
-		gBuilder.AddEvent(player, mGame.ACTION_TRASH, cards)
+		gBuilder.AddEvent(player, mHistory.ACTION_TRASH, cards)
+
+	case rxGameSetup.MatchString(text):
+		gBuilder.RegisterGameSetup()
+
 	}
+
 }
 
 func handleSupply(text string) []mCard.CardSet {

@@ -1,0 +1,28 @@
+------------ Game Setup ------------
+Supply cards: Chapel, Courtyard, Haven, Fishing Village, Village, Warehouse, Moneylender, Monument, Navigator, Bank, Copper, Silver, Gold, Estate, Duchy, Province, Curse
+Rating system: pro
+sadpuppyfarm - starting cards: Estate, Estate, Estate, Copper, Copper, Copper, Copper, Copper, Copper, Copper
+stanleygoodspeed - starting cards: Estate, Estate, Estate, Copper, Copper, Copper, Copper, Copper, Copper, Copper
+sadpuppyfarm - shuffles deck
+stanleygoodspeed - shuffles deck
+sadpuppyfarm - draws Estate, Copper, Estate, Copper, Copper
+stanleygoodspeed - draws Estate, Estate, Copper, Copper, Copper
+
+---------- stanleygoodspeed: turn 1 ----------
+stanleygoodspeed - plays 3 Copper
+stanleygoodspeed - buys Warehouse
+stanleygoodspeed - gains Warehouse
+stanleygoodspeed - draws Copper, Copper, Estate, Copper, Copper
+ 
+---------- sadpuppyfarm: turn 1 ----------
+sadpuppyfarm - plays 3 Copper
+sadpuppyfarm - buys Chapel
+sadpuppyfarm - gains Chapel
+sadpuppyfarm - draws Copper, Copper, Copper, Copper, Estate
+ 
+---------- stanleygoodspeed: turn 2 ----------
+stanleygoodspeed - plays 4 Copper
+stanleygoodspeed - buys Navigator
+stanleygoodspeed - gains Navigator
+stanleygoodspeed - shuffles deck
+stanleygoodspeed - draws Navigator, Estate, Copper, Copper, Copper

@@ -11,10 +11,10 @@ import (
 	"net/http"
 )
 
-func turnHandler() {
-	turnNum := r.URL.Path[len("/replay/"):]
-	fmt.Println("turn requested")
-	fmt.Println(turnNum)
+func turnHandler(msg string) {
+	// turnNum := r.URL.Path[len("/replay/"):]
+	// fmt.Println("turn requested")
+	// fmt.Println(turnNum)
 }
 
 func socketMsgHandler(session sockjs.Session) {

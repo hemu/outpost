@@ -2,7 +2,7 @@ package logparse
 
 import (
 	mCard "github.com/hmuar/dominion-replay/card"
-	mGame "github.com/hmuar/dominion-replay/game"
+	mHistory "github.com/hmuar/dominion-replay/history"
 	"testing"
 )
 
@@ -94,8 +94,8 @@ func TestParseSupplyCore(t *testing.T) {
 }
 
 func TestParseSupply(t *testing.T) {
-	game := ParseLog("test/testlogs/testlog_gamesetup.txt")
-	gameSupplyCards := game.Supply
+	history := ParseLog("test/testlogs/testlog_gamesetup.txt")
+	gameSupplyCards := history.Supply
 	expected := [17]mCard.CardSet{
 		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Chapel"]},
 		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Courtyard"]},
@@ -136,39 +136,59 @@ func TestTurnCore(t *testing.T) {
 	}
 }
 
+func TestTurn0(t *testing.T) {
+	history := ParseLog("test/testlogs/testlog_turn0.txt")
+	if history.Turns[0].GetNumPlayerTurns() != 2 {
+		t.Errorf("Expected 2 player turns for turn 0 but got %d",
+			history.Turns[0].GetNumPlayerTurns())
+	}
+	if len(history.Turns[0].GetPlayerEvents(0)) != 1 {
+		t.Errorf("Expected 1 player event in turn 1 but got %d",
+			len(history.Turns[0].GetPlayerEvents(0)))
+	}
+	if history.Turns[0].GetPlayerEvents(0)[0].Action != mHistory.ACTION_DRAW {
+		t.Errorf("Expected first player action draw but got %v",
+			history.Turns[0].GetPlayerEvents(0)[0].Action)
+	}
+	if history.Turns[0].GetPlayerEvents(1)[0].Action != mHistory.ACTION_DRAW {
+		t.Errorf("Expected sec player action draw but got %v",
+			history.Turns[0].GetPlayerEvents(0)[0].Action)
+	}
+}
+
 func TestTurn(t *testing.T) {
-	game := ParseLog("test/testlogs/testlog_turns.txt")
-	if len(game.Turns) != 5 {
-		t.Errorf("Expected 2 turns but got %d", len(game.Turns))
+	history := ParseLog("test/testlogs/testlog_turns.txt")
+	if len(history.Turns) != 6 {
+		t.Errorf("Expected 6 turns but got %d", len(history.Turns))
 	}
-	if game.Turns[0].GetNumPlayerTurns() != 2 {
+	if history.Turns[1].GetNumPlayerTurns() != 2 {
 		t.Errorf("Expected 2 player turns but got %d",
-			game.Turns[0].GetNumPlayerTurns())
+			history.Turns[1].GetNumPlayerTurns())
 	}
-	if game.Turns[4].GetNumPlayerTurns() != 1 {
+	if history.Turns[5].GetNumPlayerTurns() != 1 {
 		t.Errorf("Expected 1 player turn for turn 5 but got %d",
-			game.Turns[4].GetNumPlayerTurns())
+			history.Turns[5].GetNumPlayerTurns())
 	}
 }
 
 func TestEvent(t *testing.T) {
-	game := ParseLog("test/testlogs/testlog_turns.txt")
-	firstTurnEvents := game.Turns[0].GetPlayerEvents(0)
+	history := ParseLog("test/testlogs/testlog_turns.txt")
+	firstTurnEvents := history.Turns[1].GetPlayerEvents(0)
 	if firstTurnEvents[0].Player != "stanleygoodspeed" {
 		t.Errorf("Expected first event player to be stanleygoodspeed but got %v",
 			firstTurnEvents[0].Player)
 	}
-	if firstTurnEvents[0].Action != mGame.ACTION_PLAY {
+	if firstTurnEvents[0].Action != mHistory.ACTION_PLAY {
 		t.Errorf("Expected first event action to be %v but got %v",
-			mGame.ACTION_PLAY, firstTurnEvents[0].Action)
+			mHistory.ACTION_PLAY, firstTurnEvents[0].Action)
 	}
 	if firstTurnEvents[0].Cards[0].Num != 3 {
 		t.Errorf("Expected first event cards num to be 3 but got %d",
-			mGame.ACTION_PLAY, firstTurnEvents[0].Cards[0].Num)
+			mHistory.ACTION_PLAY, firstTurnEvents[0].Cards[0].Num)
 	}
 	if firstTurnEvents[0].Cards[0].Card.Name != "Copper" {
 		t.Errorf("Expected first event cards to be Copper but got %v",
-			mGame.ACTION_PLAY, firstTurnEvents[0].Cards[0].Card.Name)
+			mHistory.ACTION_PLAY, firstTurnEvents[0].Cards[0].Card.Name)
 	}
 }
 
@@ -224,15 +244,15 @@ func TestLookAtCore(t *testing.T) {
 }
 
 func TestFullTurnGame(t *testing.T) {
-	game := ParseLog("test/testlogs/testlog_turns.txt")
-	game.PrintGame()
+	// history := ParseLog("test/testlogs/testlog_turns.txt")
+	// history.PrintGame()
 }
 
 // func TestDrawAction(t *testing.T) {
 // 	log.Println("-- TestDrawAction --")
-// 	game := ParseLog("test/testlogs/testlog_turns.txt")
-// 	if len(game.Turns) != 2 {
-// 		t.Errorf("Expected 2 turns but got %d", len(game.Turns))
+// 	history := ParseLog("test/testlogs/testlog_turns.txt")
+// 	if len(history.Turns) != 2 {
+// 		t.Errorf("Expected 2 turns but got %d", len(history.Turns))
 // 	}
 // }
 
