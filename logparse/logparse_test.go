@@ -39,20 +39,23 @@ func TestParseCards(t *testing.T) {
 		t.Errorf("Parse error")
 	}
 	cards := parseCards(cardsText)
-	if len(cards) != 2 {
-		t.Errorf("Expected 2 card sets but got %d", len(cards))
+	if len(cards) != 5 {
+		t.Errorf("Expected 5 card sets but got %d", len(cards))
 	}
-	if cards[0].Num != 4 {
-		t.Errorf("Expected 4 cards for first set but got %d", cards[0].Num)
+	if cards[0].Name != "Copper" {
+		t.Errorf("Expected Copper as first card but got %v", cards[0].Name)
 	}
-	if cards[0].Card.Name != "Copper" {
-		t.Errorf("Expected Copper for first set but got %v", cards[0].Card.Name)
+	if cards[1].Name != "Copper" {
+		t.Errorf("Expected Copper as second card but got %v", cards[1].Name)
 	}
-	if cards[1].Num != 1 {
-		t.Errorf("Expected 1 cardc for second set but got %d", cards[1].Num)
+	if cards[2].Name != "Estate" {
+		t.Errorf("Expected Estate as third card but got %v", cards[2].Name)
 	}
-	if cards[1].Card.Name != "Estate" {
-		t.Errorf("Expected Estate for second set but got %v", cards[1].Card.Name)
+	if cards[3].Name != "Copper" {
+		t.Errorf("Expected Copper as fourth card but got %v", cards[3].Name)
+	}
+	if cards[4].Name != "Copper" {
+		t.Errorf("Expected Copper as fifth card but got %v", cards[4].Name)
 	}
 }
 
@@ -63,32 +66,38 @@ func TestParseSupplyCore(t *testing.T) {
 		"Copper, Silver, Gold, Estate, Duchy, " +
 		"Province, Curse"
 
-	cards := handleSupply(supLine)
+	cardSets := handleSupply(supLine)
+	// eventually need to check correct number of cards
+	// expected in supply based on card type
+	// e.g. there should be 8 provinces
 	expected := [17]mCard.CardSet{
-		mCard.CardSet{Num: 1, Card: mCard.NewCard("Chapel")},
-		mCard.CardSet{Num: 1, Card: mCard.NewCard("Courtyard")},
-		mCard.CardSet{Num: 1, Card: mCard.NewCard("Haven")},
-		mCard.CardSet{Num: 1, Card: mCard.NewCard("Fishing Village")},
-		mCard.CardSet{Num: 1, Card: mCard.NewCard("Village")},
-		mCard.CardSet{Num: 1, Card: mCard.NewCard("Warehouse")},
-		mCard.CardSet{Num: 1, Card: mCard.NewCard("Moneylender")},
-		mCard.CardSet{Num: 1, Card: mCard.NewCard("Monument")},
-		mCard.CardSet{Num: 1, Card: mCard.NewCard("Navigator")},
-		mCard.CardSet{Num: 1, Card: mCard.NewCard("Bank")},
-		mCard.CardSet{Num: 1, Card: mCard.NewCard("Copper")},
-		mCard.CardSet{Num: 1, Card: mCard.NewCard("Silver")},
-		mCard.CardSet{Num: 1, Card: mCard.NewCard("Gold")},
-		mCard.CardSet{Num: 1, Card: mCard.NewCard("Estate")},
-		mCard.CardSet{Num: 1, Card: mCard.NewCard("Duchy")},
-		mCard.CardSet{Num: 1, Card: mCard.NewCard("Province")},
-		mCard.CardSet{Num: 1, Card: mCard.NewCard("Curse")},
+		mCard.CardSet{Num: 10, Card: mCard.NewCard("Chapel")},
+		mCard.CardSet{Num: 10, Card: mCard.NewCard("Courtyard")},
+		mCard.CardSet{Num: 10, Card: mCard.NewCard("Haven")},
+		mCard.CardSet{Num: 10, Card: mCard.NewCard("Fishing Village")},
+		mCard.CardSet{Num: 10, Card: mCard.NewCard("Village")},
+		mCard.CardSet{Num: 10, Card: mCard.NewCard("Warehouse")},
+		mCard.CardSet{Num: 10, Card: mCard.NewCard("Moneylender")},
+		mCard.CardSet{Num: 10, Card: mCard.NewCard("Monument")},
+		mCard.CardSet{Num: 10, Card: mCard.NewCard("Navigator")},
+		mCard.CardSet{Num: 10, Card: mCard.NewCard("Bank")},
+		mCard.CardSet{Num: 10, Card: mCard.NewCard("Copper")},
+		mCard.CardSet{Num: 10, Card: mCard.NewCard("Silver")},
+		mCard.CardSet{Num: 10, Card: mCard.NewCard("Gold")},
+		mCard.CardSet{Num: 10, Card: mCard.NewCard("Estate")},
+		mCard.CardSet{Num: 10, Card: mCard.NewCard("Duchy")},
+		mCard.CardSet{Num: 10, Card: mCard.NewCard("Province")},
+		mCard.CardSet{Num: 10, Card: mCard.NewCard("Curse")},
 	}
-	if len(cards) != len(expected) {
-		t.Error("Got unexpected supply cards")
+	if len(cardSets) != len(expected) {
+		t.Error("Got unexpected supply cardSets")
 	}
-	for i := range cards {
-		if cards[i] != expected[i] {
-			t.Error("Expected " + expected[i].Card.Name + " but got " + cards[i].Card.Name)
+	for i := range cardSets {
+		if cardSets[i].Card.Name != expected[i].Card.Name {
+			t.Errorf("Expected %v but got %v", expected[i].Card.Name, cardSets[i].Card.Name)
+		}
+		if cardSets[i].Num != expected[i].Num {
+			t.Errorf("Expected %d but got %d", expected[i].Num, cardSets[i].Num)
 		}
 	}
 }
@@ -119,7 +128,7 @@ func TestParseSupply(t *testing.T) {
 		t.Error("Got unexpected supply mCards")
 	}
 	for i := range gameSupplyCards {
-		if gameSupplyCards[i] != expected[i] {
+		if gameSupplyCards[i].Card.Name != expected[i].Card.Name {
 			t.Error("Expected " + expected[i].Card.Name + " but got " + gameSupplyCards[i].Card.Name)
 		}
 	}
@@ -182,63 +191,53 @@ func TestEvent(t *testing.T) {
 		t.Errorf("Expected first event action to be %v but got %v",
 			mEvent.ACTION_PLAY, firstTurnEvents[0].Action)
 	}
-	if firstTurnEvents[0].Cards[0].Num != 3 {
-		t.Errorf("Expected first event cards num to be 3 but got %d",
-			mEvent.ACTION_PLAY, firstTurnEvents[0].Cards[0].Num)
-	}
-	if firstTurnEvents[0].Cards[0].Card.Name != "Copper" {
-		t.Errorf("Expected first event cards to be Copper but got %v",
-			mEvent.ACTION_PLAY, firstTurnEvents[0].Cards[0].Card.Name)
+	for i := 0; i < 3; i++ {
+		if firstTurnEvents[0].Cards[i].Name != "Copper" {
+			t.Errorf("Expected first event card #%d to be Copper but got %v",
+				i, firstTurnEvents[0].Cards[i].Name)
+		}
 	}
 }
 
 func TestHandlePlaceOnDeckCore(t *testing.T) {
 	text := "stanleygoodspeed - places Estate on top of deck"
-	player, cardSets := handlePlaceOnDeck(text)
+	player, cards := handlePlaceOnDeck(text)
 	if player != "stanleygoodspeed" {
 		t.Errorf("Expected player stanleygoodspeed but got %v", player)
 	}
-	if len(cardSets) != 1 {
-		t.Errorf("Expected 1 cardset but got %d", len(cardSets))
+	if len(cards) != 1 {
+		t.Errorf("Expected 1 card but got %d", len(cards))
 	}
-	cardSet := cardSets[0]
-	if cardSet.Num != 1 {
-		t.Errorf("Expected 1 card but got %d", cardSet.Num)
-	}
-	if cardSet.Card.Name != "Estate" {
-		t.Errorf("Expected Estate but got %v", cardSet.Card.Name)
+	card := cards[0]
+	if card.Name != "Estate" {
+		t.Errorf("Expected Estate but got %v", card.Name)
 	}
 }
 
 func TestLookAtCore(t *testing.T) {
 	text := "stanleygoodspeed - looks at Estate, Copper, Warehouse, Copper, Estate"
-	player, cardSets := handleLookAt(text)
+	player, cards := handleLookAt(text)
 	if player != "stanleygoodspeed" {
 		t.Errorf("Expected player stanleygoodspeed but got %v", player)
 	}
-	if len(cardSets) != 5 {
-		t.Errorf("Expected 5 cardsets but got %d", len(cardSets))
+	if len(cards) != 5 {
+		t.Errorf("Expected 5 cardsets but got %d", len(cards))
 	}
-	for _, cardSet := range cardSets {
-		if cardSet.Num != 1 {
-			t.Errorf("Expected 1 card but got %d", cardSet.Num)
+	if len(cards) == 5 {
+		if cards[0].Name != "Estate" {
+			t.Errorf("Expected Estate but got %v", cards[0].Name)
 		}
-	}
-	if len(cardSets) == 5 {
-		if cardSets[0].Card.Name != "Estate" {
-			t.Errorf("Expected Estate but got %v", cardSets[0].Card.Name)
+		if cards[1].Name != "Copper" {
+			t.Errorf("Expected Copper but got %v", cards[1].Name)
 		}
-		if cardSets[1].Card.Name != "Copper" {
-			t.Errorf("Expected Copper but got %v", cardSets[1].Card.Name)
+		if cards[2].Name != "Warehouse" {
+			t.Errorf("Expected Warehouse but got %v", cards[2].Name)
 		}
-		if cardSets[2].Card.Name != "Warehouse" {
-			t.Errorf("Expected Warehouse but got %v", cardSets[2].Card.Name)
+		if cards[3].Name != "Copper" {
+			t.Errorf("Expected Copper but got %v", cards[3].Name)
 		}
-		if cardSets[3].Card.Name != "Copper" {
-			t.Errorf("Expected Copper but got %v", cardSets[3].Card.Name)
-		}
-		if cardSets[4].Card.Name != "Estate" {
-			t.Errorf("Expected Estate but got %v", cardSets[4].Card.Name)
+		if cards[4].Name != "Estate" {
+			t.Errorf("Expected Estate but got %v", cards[4].Name)
 		}
 	}
 }

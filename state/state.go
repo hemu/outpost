@@ -13,11 +13,11 @@ type Player struct {
 }
 
 type Deck struct {
-	Hand     []mCard.CardSet
+	Hand     []mCard.Card
 	Draw     []mCard.Card
 	Discard  []mCard.Card
-	Duration []mCard.CardSet
-	Play     []mCard.CardSet
+	Duration []mCard.Card
+	Play     []mCard.Card
 }
 
 type Board struct {
@@ -47,16 +47,16 @@ func (s *State) SetSupply(cardSets []mCard.CardSet) {
 	s.Board.Supply = cardSets
 }
 
-func (s *State) SetHand(player string, cards []mCard.CardSet) {
+func (s *State) SetHand(player string, cards []mCard.Card) {
 	p := s.getPlayer(player)
 	p.Deck.Hand = cards
 }
 
-func (s *State) GetHand(player string) []mCard.CardSet {
+func (s *State) GetHand(player string) []mCard.Card {
 	return s.getPlayer(player).Deck.Hand
 }
 
-func (s *State) AddPlay(player string, card mCard.CardSet) {
+func (s *State) AddPlay(player string, card mCard.Card) {
 	p := s.getPlayer(player)
 	p.Deck.Play = append(p.Deck.Play, card)
 }

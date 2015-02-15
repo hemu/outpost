@@ -43,6 +43,19 @@ func NewCard(name string) Card {
 	}
 }
 
+func NewCards(name string, num int) []Card {
+	cards := []Card{}
+	for i := 0; i < num; i++ {
+		if c, ok := cardFactory[name]; ok {
+			newCard := Card{Name: c.Name, Cost: c.Cost, Ctype: c.Ctype}
+			cards = append(cards, newCard)
+		} else {
+			cards = append(cards, Card{Name: "UNKNOWN"})
+		}
+	}
+	return cards
+}
+
 type Card struct {
 	Name  string
 	Cost  int

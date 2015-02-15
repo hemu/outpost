@@ -108,7 +108,7 @@ func parseLine(text string, gBuilder *mHistory.HistoryBuilder) {
 		if err != nil {
 			check(err)
 		}
-		gBuilder.AddEvent(player, mEvent.ACTION_SHUFFLE, []mCard.CardSet{})
+		gBuilder.AddEvent(player, mEvent.ACTION_SHUFFLE, []mCard.Card{})
 
 	// player discards -- event: action is 'discard'
 	case rxTrash.MatchString(text):
@@ -124,7 +124,11 @@ func parseLine(text string, gBuilder *mHistory.HistoryBuilder) {
 
 func handleSupply(text string) []mCard.CardSet {
 	cards := parseCards(strings.Split(text, "cards:")[1])
-	return cards
+	cardSets := []mCard.CardSet{}
+	for _, card := range cards {
+		cardSets = append(cardSets, mCard.CardSet{Num: 10, Card: card})
+	}
+	return cardSets
 }
 
 func handleTurn(text string) (string, int) {
@@ -135,76 +139,69 @@ func handleTurn(text string) (string, int) {
 	return playerWithNum[0], turnNum
 }
 
-func handleActionWithCards(text string, action string) (string, []mCard.CardSet) {
+func handleActionWithCards(text string, action string) (string, []mCard.Card) {
 	player, cardsText, err := parseActionWithCards(text, action)
 	if err != nil {
-		return "", []mCard.CardSet{}
+		return "", []mCard.Card{}
 	}
 	cards := parseCards(cardsText)
 	return player, cards
 }
 
-func handleDraw(text string) (string, []mCard.CardSet) {
+func handleDraw(text string) (string, []mCard.Card) {
 	return handleActionWithCards(text, "draws")
 }
 
-func handlePlay(text string) (string, []mCard.CardSet) {
+func handlePlay(text string) (string, []mCard.Card) {
 	return handleActionWithCards(text, "plays")
 }
 
-func handleBuy(text string) (string, []mCard.CardSet) {
+func handleBuy(text string) (string, []mCard.Card) {
 	return handleActionWithCards(text, "buys")
 }
 
-func handleGain(text string) (string, []mCard.CardSet) {
+func handleGain(text string) (string, []mCard.Card) {
 	return handleActionWithCards(text, "gains")
 }
 
-func handleDiscard(text string) (string, []mCard.CardSet) {
+func handleDiscard(text string) (string, []mCard.Card) {
 	return handleActionWithCards(text, "discards")
 }
 
-func handlePlaceOnDeck(text string) (string, []mCard.CardSet) {
+func handlePlaceOnDeck(text string) (string, []mCard.Card) {
 	player, actionText, err := parsePlayerWithAction(text, "places")
 	check(err)
 	cardName := strings.TrimSpace(strings.Split(actionText, " ")[0])
-	cardSet := mCard.CardSet{Num: 1, Card: mCard.NewCard(cardName)}
-	cardSets := []mCard.CardSet{}
-	cardSets = append(cardSets, cardSet)
-	return player, cardSets
+	cards := []mCard.Card{mCard.NewCard(cardName)}
+	return player, cards
 }
 
-func handleLookAt(text string) (string, []mCard.CardSet) {
+func handleLookAt(text string) (string, []mCard.Card) {
 	// player, actionText, err := parsePlayerWithAction(text, "looks at")
 	player, cardsText, err := parsePlayerWithAction(text, "looks at")
 	check(err)
 	cardTextList := strings.Split(cardsText, ",")
-	cardSets := []mCard.CardSet{}
+	cards := []mCard.Card{}
 	for _, cardText := range cardTextList {
-		cardSet := mCard.CardSet{Num: 1,
-			Card: mCard.NewCard(strings.TrimSpace(cardText))}
-		cardSets = append(cardSets, cardSet)
+		card := mCard.NewCard(strings.TrimSpace(cardText))
+		cards = append(cards, card)
 	}
-	return player, cardSets
+	return player, cards
 }
 
-func handleTrash(text string) (string, []mCard.CardSet) {
+func handleTrash(text string) (string, []mCard.Card) {
 	return handleActionWithCards(text, "trashes")
 }
 
 // returns slice of CardSets, can parse both
 // Copper, Copper, Copper, Copper, Estate
 // 2 Copper, 1 Gold, 1 Silver
-func parseCards(text string) []mCard.CardSet {
+func parseCards(text string) []mCard.Card {
 
-	var cardGroup mCard.CardSet
 	var num int
 	var err error
 	var cardName string
-	cardGroups := []mCard.CardSet{}
-	cardCount := make(map[string]int)
-	cardOrder := []string{}
-
+	cards := []mCard.Card{}
 	cardTextList := strings.Split(text, ",")
 
 	for _, cardText := range cardTextList {
@@ -216,25 +213,12 @@ func parseCards(text string) []mCard.CardSet {
 			num, err = strconv.Atoi(cardWithNum[0])
 			check(err)
 			cardName = strings.TrimSpace(cardWithNum[1])
+			cards = append(cards, mCard.NewCards(cardName, num)...)
 		} else {
-			num = 1
-			cardName = cardText
-		}
-		val, exists := cardCount[cardName]
-		if exists {
-			cardCount[cardName] = val + num
-		} else {
-			cardCount[cardName] = num
-			cardOrder = append(cardOrder, cardName)
+			cards = append(cards, mCard.NewCard(cardText))
 		}
 	}
-
-	for _, cardName := range cardOrder {
-		cardGroup = mCard.CardSet{Num: cardCount[cardName], Card: mCard.NewCard(cardName)}
-		cardGroups = append(cardGroups, cardGroup)
-	}
-
-	return cardGroups
+	return cards
 }
 
 func parseActionWithCards(text, action string) (string, string, error) {

@@ -6,13 +6,6 @@ import (
 	mEvent "github.com/hmuar/dominion-replay/event"
 )
 
-// type GameState struct {
-//  logFile       string
-//  playerDraw    []mCard.CardSet
-//  playerDiscard []mCard.CardSet
-//  playerHand    []mCard.CardSet
-// }
-
 const (
 	BUILD_STATE_INIT = iota
 	BUILD_STATE_SETUP
@@ -32,7 +25,7 @@ func (pt *playerTurn) GetEvents() []mEvent.Event {
 
 func (pt *playerTurn) addEvent(player string,
 	action string,
-	cards []mCard.CardSet) {
+	cards []mCard.Card) {
 	newEvent := mEvent.Event{Player: player, Action: action, Cards: cards}
 	pt.events = append(pt.events, newEvent)
 }
@@ -160,7 +153,7 @@ func (hb *HistoryBuilder) StartPlayerTurn(player string, turnNum int) {
 	hb.startNewPlayerTurn(player, turnNum)
 }
 
-func (hb *HistoryBuilder) AddEvent(player string, action string, cards []mCard.CardSet) {
+func (hb *HistoryBuilder) AddEvent(player string, action string, cards []mCard.Card) {
 	if hb.state == BUILD_STATE_SETUP {
 		// if it's shuffle during game setup, ignore
 		if action == mEvent.ACTION_SHUFFLE {

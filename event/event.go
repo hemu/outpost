@@ -24,5 +24,5 @@ const (
 type Event struct {
 	Player string
 	Action string
-	Cards  []mCard.CardSet
+	Cards  []mCard.Card
 }
