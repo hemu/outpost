@@ -23,6 +23,10 @@ func (eng *Engine) RegisterEvent(ev mEvent.Event, s *mState.State) {
 
 	case mEvent.ACTION_DRAW:
 		s.SetHand(ev.Player, ev.Cards)
-		// case mEvent.ACTION_PLAY:
+
+	case mEvent.ACTION_PLAY:
+		for _, cardSet := range ev.Cards {
+			s.AddPlay(ev.Player, cardSet)
+		}
 	}
 }

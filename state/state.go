@@ -17,6 +17,7 @@ type Deck struct {
 	Draw     []mCard.Card
 	Discard  []mCard.Card
 	Duration []mCard.CardSet
+	Play     []mCard.CardSet
 }
 
 type Board struct {
@@ -53,4 +54,9 @@ func (s *State) SetHand(player string, cards []mCard.CardSet) {
 
 func (s *State) GetHand(player string) []mCard.CardSet {
 	return s.getPlayer(player).Deck.Hand
+}
+
+func (s *State) AddPlay(player string, card mCard.CardSet) {
+	p := s.getPlayer(player)
+	p.Deck.Play = append(p.Deck.Play, card)
 }

@@ -75,5 +75,39 @@ func TestRegisterEventDraw(t *testing.T) {
 			t.Errorf("Expected 2 Estates but got %d %v", sc.Num, sc.Card.Name)
 		}
 	}
+}
+
+func TestRegisterEventPlay(t *testing.T) {
+	state := mState.State{}
+	state.SetPlayers([]string{"happypuppy", "sadpuppy"})
+	eng := Engine{}
+	cards := []mCard.CardSet{}
+	cards = append(cards, mCard.CardSet{Num: 3, Card: mCard.NewCard("Copper")})
+	ev := mEvent.Event{Player: "happypuppy", Action: mEvent.ACTION_PLAY, Cards: cards}
+	eng.RegisterEvent(ev, &state)
+
+	// if len(state.GetPlay("happypuppy")) != 1 {
+	// 	t.Errorf("Expected 1 card set in player hand but got %d",
+	// 		len(state.GetHand("happypuppy")))
+	// }
+
+	// fhand := state.GetHand("happypuppy")
+	// if len(fhand) == 0 {
+	// 	t.Errorf("No hand found for player happypuppy")
+	// } else {
+	// 	fc := fhand[0]
+	// 	if fc.Card.Name != "Copper" || fc.Num != 3 {
+	// 		t.Errorf("Expected 3 Coppers but got %d %v", fc.Num, fc.Card.Name)
+	// 	}
+	// }
+
+	// if len(fhand) == 0 {
+	// 	t.Errorf("No hand found for player happypuppy")
+	// } else {
+	// 	sc := fhand[1]
+	// 	if sc.Card.Name != "Estate" || sc.Num != 2 {
+	// 		t.Errorf("Expected 2 Estates but got %d %v", sc.Num, sc.Card.Name)
+	// 	}
+	// }
 
 }
