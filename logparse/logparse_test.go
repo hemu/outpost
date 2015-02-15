@@ -2,7 +2,7 @@ package logparse
 
 import (
 	mCard "github.com/hmuar/dominion-replay/card"
-	mHistory "github.com/hmuar/dominion-replay/history"
+	mEvent "github.com/hmuar/dominion-replay/event"
 	"testing"
 )
 
@@ -65,23 +65,23 @@ func TestParseSupplyCore(t *testing.T) {
 
 	cards := handleSupply(supLine)
 	expected := [17]mCard.CardSet{
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Chapel"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Courtyard"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Haven"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Fishing Village"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Village"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Warehouse"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Moneylender"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Monument"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Navigator"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Bank"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Copper"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Silver"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Gold"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Estate"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Duchy"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Province"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Curse"]},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Chapel")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Courtyard")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Haven")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Fishing Village")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Village")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Warehouse")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Moneylender")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Monument")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Navigator")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Bank")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Copper")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Silver")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Gold")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Estate")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Duchy")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Province")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Curse")},
 	}
 	if len(cards) != len(expected) {
 		t.Error("Got unexpected supply cards")
@@ -97,23 +97,23 @@ func TestParseSupply(t *testing.T) {
 	history := ParseLog("test/testlogs/testlog_gamesetup.txt")
 	gameSupplyCards := history.Supply
 	expected := [17]mCard.CardSet{
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Chapel"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Courtyard"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Haven"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Fishing Village"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Village"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Warehouse"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Moneylender"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Monument"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Navigator"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Bank"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Copper"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Silver"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Gold"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Estate"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Duchy"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Province"]},
-		mCard.CardSet{Num: 1, Card: mCard.CardFactory["Curse"]},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Chapel")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Courtyard")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Haven")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Fishing Village")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Village")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Warehouse")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Moneylender")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Monument")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Navigator")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Bank")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Copper")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Silver")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Gold")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Estate")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Duchy")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Province")},
+		mCard.CardSet{Num: 1, Card: mCard.NewCard("Curse")},
 	}
 	if len(gameSupplyCards) != len(expected) {
 		t.Error("Got unexpected supply mCards")
@@ -146,11 +146,11 @@ func TestTurn0(t *testing.T) {
 		t.Errorf("Expected 1 player event in turn 1 but got %d",
 			len(history.Turns[0].GetPlayerEvents(0)))
 	}
-	if history.Turns[0].GetPlayerEvents(0)[0].Action != mHistory.ACTION_DRAW {
+	if history.Turns[0].GetPlayerEvents(0)[0].Action != mEvent.ACTION_DRAW {
 		t.Errorf("Expected first player action draw but got %v",
 			history.Turns[0].GetPlayerEvents(0)[0].Action)
 	}
-	if history.Turns[0].GetPlayerEvents(1)[0].Action != mHistory.ACTION_DRAW {
+	if history.Turns[0].GetPlayerEvents(1)[0].Action != mEvent.ACTION_DRAW {
 		t.Errorf("Expected sec player action draw but got %v",
 			history.Turns[0].GetPlayerEvents(0)[0].Action)
 	}
@@ -178,17 +178,17 @@ func TestEvent(t *testing.T) {
 		t.Errorf("Expected first event player to be stanleygoodspeed but got %v",
 			firstTurnEvents[0].Player)
 	}
-	if firstTurnEvents[0].Action != mHistory.ACTION_PLAY {
+	if firstTurnEvents[0].Action != mEvent.ACTION_PLAY {
 		t.Errorf("Expected first event action to be %v but got %v",
-			mHistory.ACTION_PLAY, firstTurnEvents[0].Action)
+			mEvent.ACTION_PLAY, firstTurnEvents[0].Action)
 	}
 	if firstTurnEvents[0].Cards[0].Num != 3 {
 		t.Errorf("Expected first event cards num to be 3 but got %d",
-			mHistory.ACTION_PLAY, firstTurnEvents[0].Cards[0].Num)
+			mEvent.ACTION_PLAY, firstTurnEvents[0].Cards[0].Num)
 	}
 	if firstTurnEvents[0].Cards[0].Card.Name != "Copper" {
 		t.Errorf("Expected first event cards to be Copper but got %v",
-			mHistory.ACTION_PLAY, firstTurnEvents[0].Cards[0].Card.Name)
+			mEvent.ACTION_PLAY, firstTurnEvents[0].Cards[0].Card.Name)
 	}
 }
 

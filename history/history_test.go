@@ -2,6 +2,7 @@ package event
 
 import (
 	mCard "github.com/hmuar/dominion-replay/card"
+	mEvent "github.com/hmuar/dominion-replay/event"
 	"testing"
 )
 
@@ -94,8 +95,8 @@ func TestSavePlayerTurn(t *testing.T) {
 func TestAddEvent(t *testing.T) {
 	hb := NewHistoryBuilder()
 	hb.StartPlayerTurn("homer", 1)
-	drawCards := []mCard.CardSet{mCard.CardSet{Num: 5, Card: mCard.CardFactory["Copper"]}}
-	hb.AddEvent("homer", ACTION_DRAW, drawCards)
+	drawCards := []mCard.CardSet{mCard.CardSet{Num: 5, Card: mCard.NewCard("Copper")}}
+	hb.AddEvent("homer", mEvent.ACTION_DRAW, drawCards)
 	if len(hb.getCurPlayerTurn().events) != 1 {
 		t.Errorf("Expected 1 event in cur player turn but got %d",
 			len(hb.getCurPlayerTurn().events))
@@ -109,11 +110,11 @@ func TestAddEvent(t *testing.T) {
 func TestAddEventDraw(t *testing.T) {
 	hb := NewHistoryBuilder()
 	hb.StartPlayerTurn("homer", 1)
-	drawCards := []mCard.CardSet{mCard.CardSet{Num: 5, Card: mCard.CardFactory["Copper"]}}
-	hb.AddEvent("homer", ACTION_DRAW, drawCards)
-	if hb.getCurPlayerTurn().events[0].Action != ACTION_DRAW {
+	drawCards := []mCard.CardSet{mCard.CardSet{Num: 5, Card: mCard.NewCard("Copper")}}
+	hb.AddEvent("homer", mEvent.ACTION_DRAW, drawCards)
+	if hb.getCurPlayerTurn().events[0].Action != mEvent.ACTION_DRAW {
 		t.Errorf("Expected event action %v but got %v",
-			ACTION_DRAW,
+			mEvent.ACTION_DRAW,
 			hb.getCurPlayerTurn().events[0].Action)
 	}
 	if hb.getCurPlayerTurn().events[0].Cards[0].Num != 5 {
@@ -129,11 +130,11 @@ func TestAddEventDraw(t *testing.T) {
 func TestAddEventPlay(t *testing.T) {
 	hb := NewHistoryBuilder()
 	hb.StartPlayerTurn("homer", 1)
-	playCards := []mCard.CardSet{mCard.CardSet{Num: 5, Card: mCard.CardFactory["Copper"]}}
-	hb.AddEvent("homer", ACTION_PLAY, playCards)
-	if hb.getCurPlayerTurn().events[0].Action != ACTION_PLAY {
+	playCards := []mCard.CardSet{mCard.CardSet{Num: 5, Card: mCard.NewCard("Copper")}}
+	hb.AddEvent("homer", mEvent.ACTION_PLAY, playCards)
+	if hb.getCurPlayerTurn().events[0].Action != mEvent.ACTION_PLAY {
 		t.Errorf("Expected event action %v but got %v",
-			ACTION_PLAY,
+			mEvent.ACTION_PLAY,
 			hb.getCurPlayerTurn().events[0].Action)
 	}
 	if hb.getCurPlayerTurn().events[0].Cards[0].Num != 5 {
@@ -149,11 +150,11 @@ func TestAddEventPlay(t *testing.T) {
 func TestAddEventBuy(t *testing.T) {
 	hb := NewHistoryBuilder()
 	hb.StartPlayerTurn("homer", 1)
-	buyCards := []mCard.CardSet{mCard.CardSet{Num: 1, Card: mCard.CardFactory["Gold"]}}
-	hb.AddEvent("homer", ACTION_BUY, buyCards)
-	if hb.getCurPlayerTurn().events[0].Action != ACTION_BUY {
+	buyCards := []mCard.CardSet{mCard.CardSet{Num: 1, Card: mCard.NewCard("Gold")}}
+	hb.AddEvent("homer", mEvent.ACTION_BUY, buyCards)
+	if hb.getCurPlayerTurn().events[0].Action != mEvent.ACTION_BUY {
 		t.Errorf("Expected event action %v but got %v",
-			ACTION_BUY,
+			mEvent.ACTION_BUY,
 			hb.getCurPlayerTurn().events[0].Action)
 	}
 	if hb.getCurPlayerTurn().events[0].Cards[0].Num != 1 {
@@ -169,11 +170,11 @@ func TestAddEventBuy(t *testing.T) {
 func TestAddEventGain(t *testing.T) {
 	hb := NewHistoryBuilder()
 	hb.StartPlayerTurn("homer", 1)
-	buyCards := []mCard.CardSet{mCard.CardSet{Num: 1, Card: mCard.CardFactory["Gold"]}}
-	hb.AddEvent("homer", ACTION_GAIN, buyCards)
-	if hb.getCurPlayerTurn().events[0].Action != ACTION_GAIN {
+	buyCards := []mCard.CardSet{mCard.CardSet{Num: 1, Card: mCard.NewCard("Gold")}}
+	hb.AddEvent("homer", mEvent.ACTION_GAIN, buyCards)
+	if hb.getCurPlayerTurn().events[0].Action != mEvent.ACTION_GAIN {
 		t.Errorf("Expected event action %v but got %v",
-			ACTION_GAIN,
+			mEvent.ACTION_GAIN,
 			hb.getCurPlayerTurn().events[0].Action)
 	}
 	if hb.getCurPlayerTurn().events[0].Cards[0].Num != 1 {
@@ -189,11 +190,11 @@ func TestAddEventGain(t *testing.T) {
 func TestAddEventDiscard(t *testing.T) {
 	hb := NewHistoryBuilder()
 	hb.StartPlayerTurn("homer", 1)
-	buyCards := []mCard.CardSet{mCard.CardSet{Num: 5, Card: mCard.CardFactory["Copper"]}}
-	hb.AddEvent("homer", ACTION_DISCARD, buyCards)
-	if hb.getCurPlayerTurn().events[0].Action != ACTION_DISCARD {
+	buyCards := []mCard.CardSet{mCard.CardSet{Num: 5, Card: mCard.NewCard("Copper")}}
+	hb.AddEvent("homer", mEvent.ACTION_DISCARD, buyCards)
+	if hb.getCurPlayerTurn().events[0].Action != mEvent.ACTION_DISCARD {
 		t.Errorf("Expected event action %v but got %v",
-			ACTION_DISCARD,
+			mEvent.ACTION_DISCARD,
 			hb.getCurPlayerTurn().events[0].Action)
 	}
 	if hb.getCurPlayerTurn().events[0].Cards[0].Num != 5 {

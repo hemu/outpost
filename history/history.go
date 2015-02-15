@@ -3,6 +3,7 @@ package event
 import (
 	"fmt"
 	mCard "github.com/hmuar/dominion-replay/card"
+	mEvent "github.com/hmuar/dominion-replay/event"
 )
 
 // type GameState struct {
@@ -12,23 +13,6 @@ import (
 //  playerHand    []mCard.CardSet
 // }
 
-// TODO:
-// ACTION_REVEAL
-// ACTION_RECEIVE
-// ACTION_DURATION
-
-const (
-	ACTION_DRAW          string = "draw"
-	ACTION_PLAY          string = "play"
-	ACTION_BUY           string = "buy"
-	ACTION_GAIN          string = "gain"
-	ACTION_DISCARD       string = "discard"
-	ACTION_SHUFFLE       string = "shuffle"
-	ACTION_PLACE_ON_DECK string = "place-on-deck"
-	ACTION_LOOK_AT       string = "look-at"
-	ACTION_TRASH         string = "trash"
-)
-
 const (
 	BUILD_STATE_INIT = iota
 	BUILD_STATE_SETUP
@@ -36,26 +20,20 @@ const (
 	BUILD_STATE_END
 )
 
-type event struct {
-	Player string
-	Action string
-	Cards  []mCard.CardSet
-}
-
 type playerTurn struct {
 	num    int
 	player string
-	events []event
+	events []mEvent.Event
 }
 
-func (pt *playerTurn) GetEvents() []event {
+func (pt *playerTurn) GetEvents() []mEvent.Event {
 	return pt.events
 }
 
 func (pt *playerTurn) addEvent(player string,
 	action string,
 	cards []mCard.CardSet) {
-	newEvent := event{Player: player, Action: action, Cards: cards}
+	newEvent := mEvent.Event{Player: player, Action: action, Cards: cards}
 	pt.events = append(pt.events, newEvent)
 }
 
@@ -77,9 +55,9 @@ func (t *turn) getCurPlayerTurn() *playerTurn {
 	}
 }
 
-func (t *turn) GetPlayerEvents(playerInd int) []event {
+func (t *turn) GetPlayerEvents(playerInd int) []mEvent.Event {
 	if playerInd > len(t.playerTurns) {
-		return []event{}
+		return []mEvent.Event{}
 	}
 	return t.playerTurns[playerInd].events
 }
@@ -97,14 +75,30 @@ type History struct {
 	Winner  string
 }
 
-func (g *History) PrintGame() {
-	for _, turn := range g.Turns {
-		fmt.Printf("******** Turn %d *******\n", turn.num)
+func (h *History) Print() {
+	fmt.Println("[Game Info]")
+	fmt.Printf("  Logfile: %v\n", h.LogFile)
+	fmt.Printf("  Players: %v\n", h.Players)
+	fmt.Println("  Supply:")
+	for _, cardSet := range h.Supply {
+		fmt.Printf("    %v\n", cardSet)
+	}
+	fmt.Printf("  Rating: %v\n", h.Rating)
+	fmt.Printf("  Winner: %v\n\n", h.Winner)
+	fmt.Println("[Game Start]")
+	for _, turn := range h.Turns {
+		fmt.Printf("  [Turn %d]\n", turn.num)
 		for _, pTurn := range turn.playerTurns {
-			fmt.Printf("--- %v turn %d ---\n", pTurn.player, turn.num)
+			fmt.Printf("    [%v turn %d]\n", pTurn.player, pTurn.num)
 			for _, ev := range pTurn.events {
-				fmt.Printf("%v ", ev.Action)
-				fmt.Println(ev.Cards)
+				actString := ev.Action
+				paddingSize := 8 - len(actString)
+				if paddingSize > 0 {
+					for i := 0; i < paddingSize; i++ {
+						actString += " "
+					}
+				}
+				fmt.Printf("      %v| %v\n", actString, ev.Cards)
 			}
 		}
 		fmt.Println("")
@@ -169,7 +163,7 @@ func (hb *HistoryBuilder) StartPlayerTurn(player string, turnNum int) {
 func (hb *HistoryBuilder) AddEvent(player string, action string, cards []mCard.CardSet) {
 	if hb.state == BUILD_STATE_SETUP {
 		// if it's shuffle during game setup, ignore
-		if action == ACTION_SHUFFLE {
+		if action == mEvent.ACTION_SHUFFLE {
 			return
 		} else {
 			hb.startNewPlayerTurn(player, 0)

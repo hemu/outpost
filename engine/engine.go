@@ -1,24 +1,28 @@
 package engine
 
+// Feed engine an action, and a state, and
+// engine knows how to interpret action and
+// modify the state
+
 import (
-	// mCard "github.com/hmuar/dominion-replay/card"
-	mGame "github.com/hmuar/dominion-replay/game"
+	mCard "github.com/hmuar/dominion-replay/card"
+	mEvent "github.com/hmuar/dominion-replay/event"
+	mState "github.com/hmuar/dominion-replay/state"
 )
 
-// turn indexed array of game states
-// stores gamestate at beginning of every turn
-// turn 0 is start of game
-type gameEngine struct {
-	game mGame.Game
-	// states []mGameState.GameState
+type Engine struct {
 }
 
-// factory func
-func NewGameEngine() gameEngine {
-	e := gameEngine{}
-	return e
+func (eng *Engine) SetSupply(cards []mCard.CardSet, s *mState.State) {
+	s.SetSupply(cards)
 }
 
-func (e *gameEngine) FeedGame(g mGame.Game) {
+func (eng *Engine) RegisterEvent(ev mEvent.Event, s *mState.State) {
 
+	switch ev.Action {
+
+	case mEvent.ACTION_DRAW:
+		s.SetHand(ev.Player, ev.Cards)
+		// case mEvent.ACTION_PLAY:
+	}
 }

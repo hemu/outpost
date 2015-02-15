@@ -14,7 +14,7 @@ const (
 	CURSE
 )
 
-var CardFactory = map[string]Card{
+var cardFactory = map[string]Card{
 	"Chapel":          {Name: "Chapel", Cost: 2, Ctype: ACTION},
 	"Courtyard":       {Name: "Courtyard", Cost: 2, Ctype: ACTION},
 	"Haven":           {Name: "Haven", Cost: 2, Ctype: ACTION},
@@ -32,6 +32,15 @@ var CardFactory = map[string]Card{
 	"Duchy":           {Name: "Duchy", Cost: 5, Ctype: VICTORY},
 	"Province":        {Name: "Province", Cost: 8, Ctype: VICTORY},
 	"Curse":           {Name: "Curse", Cost: 0, Ctype: CURSE},
+}
+
+func NewCard(name string) Card {
+	if c, ok := cardFactory[name]; ok {
+		newCard := Card{Name: c.Name, Cost: c.Cost, Ctype: c.Ctype}
+		return newCard
+	} else {
+		return Card{Name: "UNKNOWN"}
+	}
 }
 
 type Card struct {
