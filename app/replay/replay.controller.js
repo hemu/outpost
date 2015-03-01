@@ -24,7 +24,11 @@ angular.module('dominionReplayApp')
   console.log("--- Showing Turn " + $stateParams.turn + " ---");
   mySocket.setHandler('open', function() {
     console.log("opened event");
-    mySocket.send(JSON.stringify({turn: $stateParams.turn}));
+    mySocket.send(JSON.stringify({
+      mtype: "turn", 
+      mdata: {num: parseInt($stateParams.turn), pnum: 0}
+    }));
+    // mySocket.send(JSON.stringify({mtype: "turn"}));
   });
   mySocket.setHandler('message', function(msg) {
     console.log("server sent a message:");

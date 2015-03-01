@@ -34,10 +34,12 @@ var rxLookAt, _ = regexp.Compile(".*looks.*$")
 var rxTurn, _ = regexp.Compile(".*turn.*$")
 var rxNumCards, _ = regexp.Compile("^.*[0-9] .*$")
 
-// returns Game
-// Game contains a slice of []turns
-// each turn is  a slice of []event
-// an event has a player, action, and cards []mCard.Card
+// returns History, which is a big slice of []Turns
+// Each Turn has playerTurns
+// Each playerTurn is made up of events, e.g.
+// - player draws card
+// - player gains card
+
 func ParseLog(fileName string) mHistory.History {
 	fileName = fileName
 	// log.Println("Parsing log: ", fileName)

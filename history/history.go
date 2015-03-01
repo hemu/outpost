@@ -35,6 +35,10 @@ type turn struct {
 	playerTurns []playerTurn
 }
 
+func (t *turn) GetTurnNum() int {
+	return t.num
+}
+
 func (t *turn) addPlayerTurn(pt playerTurn) {
 	t.playerTurns = append(t.playerTurns, pt)
 }
@@ -60,12 +64,13 @@ func (t *turn) GetNumPlayerTurns() int {
 }
 
 type History struct {
-	LogFile string
-	Players []string
-	Supply  []mCard.CardSet
-	Turns   []turn
-	Rating  string
-	Winner  string
+	LogFile     string
+	Players     []string
+	Supply      []mCard.CardSet
+	Turns       []turn
+	PlayerOrder []string
+	Rating      string
+	Winner      string
 }
 
 func (h *History) Print() {
@@ -135,6 +140,10 @@ func (hb *HistoryBuilder) startNewTurn(turnNum int) {
 }
 
 func (hb *HistoryBuilder) startNewPlayerTurn(player string, turnNum int) {
+	// if turn 0, use this to build up player order
+	if turnNum == 1 {
+		hb.History.PlayerOrder = append(hb.History.PlayerOrder, player)
+	}
 	// if turnNum is diff than current turn num,
 	// then need to start a new turn
 	if hb.getCurTurn().num != turnNum {

@@ -242,6 +242,23 @@ func TestLookAtCore(t *testing.T) {
 	}
 }
 
+func TestPlayerOrder(t *testing.T) {
+	history := ParseLog("test/testlogs/testlog_turn0.txt")
+	if len(history.PlayerOrder) != 2 {
+		t.Errorf("Expected 2 player order entries but got %d",
+			len(history.PlayerOrder))
+	} else {
+		if history.PlayerOrder[0] != "stanleygoodspeed" {
+			t.Errorf("Expected first player stanleygoodspeed but got %v",
+				history.PlayerOrder[0])
+		}
+		if history.PlayerOrder[1] != "sadpuppyfarm" {
+			t.Errorf("Expected second player sadpuppyfarm but got %v",
+				history.PlayerOrder[1])
+		}
+	}
+}
+
 func TestFullTurnGame(t *testing.T) {
 	// history := ParseLog("test/testlogs/testlog_turns.txt")
 	// history.PrintGame()

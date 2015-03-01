@@ -19,6 +19,7 @@ const (
 	ACTION_PLACE_ON_DECK string = "place"
 	ACTION_LOOK_AT       string = "look"
 	ACTION_TRASH         string = "trash"
+	ACTION_END_TURN      string = "end"
 )
 
 type Event struct {

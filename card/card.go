@@ -1,8 +1,9 @@
 package card
 
 import (
-// "fmt"
-// "log"
+	"fmt"
+	// "log"
+	"errors"
 )
 
 type CardType int
@@ -34,6 +35,27 @@ var cardFactory = map[string]Card{
 	"Curse":           {Name: "Curse", Cost: 0, Ctype: CURSE},
 }
 
+// {actions, buys, coins, victory}
+var cardStats = map[string][4]int{
+	"Chapel":          [4]int{0, 0, 0, 0},
+	"Courtyard":       [4]int{0, 0, 0, 0},
+	"Haven":           [4]int{1, 0, 0, 0},
+	"Fishing Village": [4]int{2, 0, 1, 0},
+	"Village":         [4]int{2, 0, 0, 0},
+	"Warehouse":       [4]int{1, 0, 0, 0},
+	"Moneylender":     [4]int{0, 0, 0, 0},
+	"Monument":        [4]int{0, 0, 2, 1},
+	"Navigator":       [4]int{0, 0, 0, 0},
+	"Bank":            [4]int{0, 0, 0, 0},
+	"Copper":          [4]int{0, 0, 1, 0},
+	"Silver":          [4]int{0, 0, 2, 0},
+	"Gold":            [4]int{0, 0, 3, 0},
+	"Estate":          [4]int{0, 0, 0, 1},
+	"Duchy":           [4]int{0, 0, 0, 3},
+	"Province":        [4]int{0, 0, 0, 6},
+	"Curse":           [4]int{0, 0, 0, 0},
+}
+
 func NewCard(name string) Card {
 	if c, ok := cardFactory[name]; ok {
 		newCard := Card{Name: c.Name, Cost: c.Cost, Ctype: c.Ctype}
@@ -54,6 +76,14 @@ func NewCards(name string, num int) []Card {
 		}
 	}
 	return cards
+}
+
+func GetCardStats(name string) ([4]int, error) {
+	if c, ok := cardStats[name]; ok {
+		return c, nil
+	} else {
+		return c, errors.New(fmt.Sprintf("Could not find stats for card %v", name))
+	}
 }
 
 type Card struct {
