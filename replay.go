@@ -7,26 +7,36 @@ import (
 	"encoding/json"
 	mGame "github.com/hmuar/dominion-replay/game"
 	mMsg "github.com/hmuar/dominion-replay/message"
+	mState "github.com/hmuar/dominion-replay/state"
 	"github.com/julienschmidt/httprouter"
 	"gopkg.in/igm/sockjs-go.v2/sockjs"
 	"log"
 	"net/http"
 )
 
-var game mGame.Game
+// var game mGame.Game
 
-func turnHandler(msg mMsg.Msg) {
+func turnHandler(msg mMsg.Msg, game mGame.Game) mState.State {
 	// fmt.Printf("%T", data)
 	// turnNum := data[mMsg.KEY_DATA_TURN_NUM]
 	// playerNum := data[mMsg.KEY_DATA_PLAYER_NUM]
-	turnNum := msg.MData["num"].(float64)
-	playerNum := msg.MData["pnum"].(float64)
-	fmt.Printf("turn %v\n", turnNum)
-	fmt.Printf("playerTurn %v", playerNum)
-
+	turnNumFloat := msg.MData["num"].(float64)
+	playerNumFloat := msg.MData["pnum"].(float64)
+	turnNumInt := int(turnNumFloat)
+	playerNumInt := int(playerNumFloat)
+	fmt.Printf("turn %v\n", turnNumInt)
+	fmt.Printf("playerTurn %v\n", playerNumInt)
+	// fmt.Printf("gameState length: %v\n", len(game.GetState(0, 0)))
+	// return mState.State{}
+	return game.GetState(turnNumInt, playerNumInt)
 }
 
 func socketMsgHandler(session sockjs.Session) {
+	fmt.Println("socketMsgHandlerrrrrrrr")
+	logFile := "logparse/test/testlogs/testlog_turns.txt"
+	history := mLogParse.ParseLog(logFile)
+	gameBuilder := mGame.NewGameBuilder()
+	gameBuilder.FeedHistory(history)
 	fmt.Println("[MSG] Received message")
 	msg := &mMsg.Msg{}
 	// var msg map[string]string
@@ -42,9 +52,10 @@ func socketMsgHandler(session sockjs.Session) {
 			// msgType := msg[msgTypeKey]
 			switch msg.MType {
 			case mMsg.KEY_MSG_TYPE_TURN:
-				turnHandler(*msg)
+				data := turnHandler(*msg, gameBuilder.GetGame())
+				m, _ := json.Marshal(data)
+				session.Send(string(m))
 			}
-
 		}
 		break
 	}
@@ -69,10 +80,5 @@ func main() {
 	router.GET("/", indexHandler)
 	log.Println("Listening on :3000")
 	log.Fatal(http.ListenAndServe(":3000", router))
-
-	logFile := "test/testlogs/testlog_turns.txt"
-	history := mLogParse.ParseLog(logFile)
-	gameBuilder := mGame.NewGameBuilder()
-	gameBuilder.FeedHistory(history)
 
 }

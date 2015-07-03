@@ -140,7 +140,7 @@ func (hb *HistoryBuilder) startNewTurn(turnNum int) {
 }
 
 func (hb *HistoryBuilder) startNewPlayerTurn(player string, turnNum int) {
-	// if turn 0, use this to build up player order
+	// if turn 1, use this to build up player order
 	if turnNum == 1 {
 		hb.History.PlayerOrder = append(hb.History.PlayerOrder, player)
 	}
@@ -153,12 +153,28 @@ func (hb *HistoryBuilder) startNewPlayerTurn(player string, turnNum int) {
 	curTurn.addPlayerTurn(playerTurn{num: turnNum, player: player})
 }
 
+func (hb *HistoryBuilder) endPrevPlayerTurn(player string, turnNum int) {
+	curPlayerTurn := hb.getCurPlayerTurn()
+	if curPlayerTurn.player != "" && curPlayerTurn.num != 0 {
+		curPlayerTurn.addEvent(player, mEvent.ACTION_END_TURN, []mCard.Card{})
+	}
+}
+
 func (hb *HistoryBuilder) RegisterGameSetup() {
 	hb.startNewTurn(0)
 	hb.state = BUILD_STATE_SETUP
 }
 
 func (hb *HistoryBuilder) StartPlayerTurn(player string, turnNum int) {
+	if turnNum == 1 && hb.getCurTurn().GetNumPlayerTurns() > 0 {
+		if hb.getCurTurn().GetNumPlayerTurns() > 0 {
+			curPlayerTurn := hb.getCurPlayerTurn()
+			hb.endPrevPlayerTurn(curPlayerTurn.player, curPlayerTurn.num)
+		}
+	} else {
+		curPlayerTurn := hb.getCurPlayerTurn()
+		hb.endPrevPlayerTurn(curPlayerTurn.player, curPlayerTurn.num)
+	}
 	hb.startNewPlayerTurn(player, turnNum)
 }
 

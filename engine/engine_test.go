@@ -73,10 +73,14 @@ func TestEventDraw(t *testing.T) {
 	state.SetPlayers([]string{"happypuppy", "sadpuppy"})
 	eng := Engine{}
 	cards := []mCard.Card{}
-	cards = append(cards, mCard.NewCards("Copper", 3)...)
-	cards = append(cards, mCard.NewCards("Estate", 2)...)
+	cards = append(cards, mCard.NewCards("Copper", 7)...)
+	cards = append(cards, mCard.NewCards("Estate", 3)...)
+	state.Players["happypuppy"].Draw = cards
+	drawCards := []mCard.Card{}
+	drawCards = append(drawCards, mCard.NewCards("Copper", 3)...)
+	drawCards = append(drawCards, mCard.NewCards("Estate", 2)...)
 
-	ev := mEvent.Event{Player: "happypuppy", Action: mEvent.ACTION_DRAW, Cards: cards}
+	ev := mEvent.Event{Player: "happypuppy", Action: mEvent.ACTION_DRAW, Cards: drawCards}
 	_ = eng.RegisterEvent(ev, &state)
 
 	if len(state.GetHand("happypuppy")) != 5 {
@@ -95,6 +99,182 @@ func TestEventDraw(t *testing.T) {
 			}
 		}
 	}
+
+	playerDraw := state.GetDraw("happypuppy")
+	if len(playerDraw) != 5 {
+		t.Errorf("Expected 5 cards in player hand but got %d",
+			len(playerDraw))
+	}
+	numDrawCopper := 0
+	numDrawEstate := 0
+	for _, card := range playerDraw {
+		if card.Name == "Copper" {
+			numDrawCopper += 1
+		} else if card.Name == "Estate" {
+			numDrawEstate += 1
+		}
+	}
+	if numDrawCopper != 4 {
+		t.Errorf("Expected 4 Coppers in player draw but got %d", numDrawCopper)
+	}
+	if numDrawEstate != 1 {
+		t.Errorf("Expected 1 Estate in player draw but got %d", numDrawEstate)
+	}
+
+}
+
+func TestMultiPlayerDraw(t *testing.T) {
+	state := mState.State{}
+	state.SetPlayers([]string{"happypuppy", "sadpuppy"})
+	eng := Engine{}
+	cards := mCard.NewCards("Copper", 7)
+	cards = append(cards, mCard.NewCards("Estate", 3)...)
+	state.SetDraw("happypuppy", cards)
+
+	cards2 := mCard.NewCards("Copper", 7)
+	cards2 = append(cards2, mCard.NewCards("Estate", 3)...)
+	state.SetDraw("sadpuppy", cards2)
+
+	numC := 0
+	numE := 0
+	for _, card := range state.GetDraw("happypuppy") {
+		if card.Name == "Copper" {
+			numC += 1
+		} else if card.Name == "Estate" {
+			numE += 1
+		}
+	}
+	if numC != 7 {
+		t.Errorf("Expected 7 Coppers in player draw but got %d", numC)
+	}
+	if numE != 3 {
+		t.Errorf("Expected 3 Estate in player draw but got %d", numE)
+	}
+
+	numC = 0
+	numE = 0
+	for _, card := range state.GetDraw("sadpuppy") {
+		if card.Name == "Copper" {
+			numC += 1
+		} else if card.Name == "Estate" {
+			numE += 1
+		}
+	}
+	if numC != 7 {
+		t.Errorf("Expected 7 Coppers in player draw but got %d", numC)
+	}
+	if numE != 3 {
+		t.Errorf("Expected 3 Estate in player draw but got %d", numE)
+	}
+
+	drawCards := mCard.NewCards("Copper", 3)
+	drawCards = append(drawCards, mCard.NewCards("Estate", 2)...)
+
+	ev := mEvent.Event{Player: "happypuppy", Action: mEvent.ACTION_DRAW, Cards: drawCards}
+	_ = eng.RegisterEvent(ev, &state)
+
+	numC = 0
+	numE = 0
+	for _, card := range state.GetDraw("sadpuppy") {
+		if card.Name == "Copper" {
+			numC += 1
+		} else if card.Name == "Estate" {
+			numE += 1
+		}
+	}
+	if numC != 7 {
+		t.Errorf("Expected 7 Coppers in player draw but got %d", numC)
+	}
+	if numE != 3 {
+		t.Errorf("Expected 3 Estate in player draw but got %d", numE)
+	}
+
+	if len(state.GetHand("happypuppy")) != 5 {
+		t.Errorf("Expected 5 cards in player hand but got %d",
+			len(state.GetHand("happypuppy")))
+	}
+
+	hand := state.GetHand("happypuppy")
+	if len(hand) == 0 {
+		t.Errorf("No hand found for player happypuppy")
+	} else {
+		for i := 0; i < 3; i++ {
+			if hand[i].Name != cards[i].Name {
+				t.Errorf("Expected %v as %dth hand card but got %v",
+					cards[i].Name, i, hand[i].Name)
+			}
+		}
+	}
+
+	playCards := mCard.NewCards("Copper", 3)
+	ev = mEvent.Event{Player: "happypuppy", Action: mEvent.ACTION_PLAY, Cards: playCards}
+	_ = eng.RegisterEvent(ev, &state)
+
+	numC = 0
+	numE = 0
+	for _, card := range state.GetDraw("sadpuppy") {
+		if card.Name == "Copper" {
+			numC += 1
+		} else if card.Name == "Estate" {
+			numE += 1
+		}
+	}
+	if numC != 7 {
+		t.Errorf("Expected 7 Coppers in player draw but got %d", numC)
+	}
+	if numE != 3 {
+		t.Errorf("Expected 3 Estate in player draw but got %d", numE)
+	}
+
+	ev = mEvent.Event{Player: "happypuppy", Action: mEvent.ACTION_END_TURN,
+		Cards: []mCard.Card{}}
+	_ = eng.RegisterEvent(ev, &state)
+
+	numC = 0
+	numE = 0
+	for _, card := range state.GetDraw("sadpuppy") {
+		if card.Name == "Copper" {
+			numC += 1
+		} else if card.Name == "Estate" {
+			numE += 1
+		}
+	}
+	if numC != 7 {
+		t.Errorf("Expected 7 Coppers in player draw but got %d", numC)
+	}
+	if numE != 3 {
+		t.Errorf("Expected 3 Estate in player draw but got %d", numE)
+	}
+
+	drawCards2 := mCard.NewCards("Copper", 2)
+	drawCards2 = append(drawCards2, mCard.NewCards("Estate", 3)...)
+	ev = mEvent.Event{Player: "sadpuppy", Action: mEvent.ACTION_DRAW, Cards: drawCards2}
+	_ = eng.RegisterEvent(ev, &state)
+	playCards2 := mCard.NewCards("Copper", 2)
+	ev = mEvent.Event{Player: "sadpuppy", Action: mEvent.ACTION_PLAY, Cards: playCards2}
+	_ = eng.RegisterEvent(ev, &state)
+
+	playerDraw := state.GetDraw("happypuppy")
+	if len(playerDraw) != 5 {
+		t.Errorf("Expected 5 cards in player hand but got %d",
+			len(playerDraw))
+	}
+	numDrawCopper := 0
+	numDrawEstate := 0
+	for _, card := range playerDraw {
+		if card.Name == "Copper" {
+			numDrawCopper += 1
+		} else if card.Name == "Estate" {
+			numDrawEstate += 1
+		}
+	}
+	if numDrawCopper != 4 {
+		t.Errorf("Expected 4 Coppers in player draw but got %d", numDrawCopper)
+	}
+	if numDrawEstate != 1 {
+		t.Errorf("Expected 1 Estate in player draw but got %d", numDrawEstate)
+	}
+
 }
 
 func TestEventPlay(t *testing.T) {
@@ -345,16 +525,116 @@ func TestEventDiscard(t *testing.T) {
 
 }
 
-func TestEventEndTurn(t *testing.T) {
+// add board play and player hand to discard
+// clear board play
+// clear player hand
+// player action = 0
+// player buy = 0
+// player coin = 0
+func TestEventEndTurnThenStart(t *testing.T) {
 	state := mState.State{}
 	state.SetPlayers([]string{"happypuppy", "sadpuppy"})
 	state.SetTurnPlayer("happypuppy")
 	eng := Engine{}
-
 	cards := []mCard.Card{}
 	cards = append(cards, mCard.NewCards("Copper", 3)...)
-	cards = append(cards, mCard.NewCards("Village", 2)...)
+	cards = append(cards, mCard.NewCards("Estate", 2)...)
+	ev := mEvent.Event{Player: "happypuppy", Action: mEvent.ACTION_DRAW, Cards: cards}
+	_ = eng.RegisterEvent(ev, &state)
 
-	state.SetHand("happypuppy", cards)
+	hand := state.GetHand("happypuppy")
+	if len(hand) == 0 {
+		t.Errorf("No hand found for player happypuppy")
+	} else {
+		for i := 0; i < 3; i++ {
+			if hand[i].Name != cards[i].Name {
+				t.Errorf("Expected %v as %dth hand card but got %v",
+					cards[i].Name, i, hand[i].Name)
+			}
+		}
+	}
+
+	playCards := mCard.NewCards("Copper", 3)
+	ev = mEvent.Event{Player: "happypuppy", Action: mEvent.ACTION_PLAY, Cards: playCards}
+	_ = eng.RegisterEvent(ev, &state)
+
+	play := state.GetPlay()
+	if len(play) == 0 {
+		t.Errorf("No play cards found")
+	} else {
+		for i := 0; i < len(playCards); i++ {
+			if play[i].Name != playCards[i].Name {
+				t.Errorf("Expected %v as %dth play card but got %v",
+					playCards[i].Name, i, play[i].Name)
+			}
+		}
+	}
+
+	remainHand := state.GetHand("happypuppy")
+	if len(remainHand) != 2 {
+		t.Errorf("Expected 2 cards in hand but got %d", len(remainHand))
+	} else {
+		for i := 0; i < 2; i++ {
+			if remainHand[i].Name != "Estate" {
+				t.Errorf("Expected %v as %dth hand card but got %v",
+					"Estate", i, remainHand[i].Name)
+			}
+		}
+	}
+
+	ev = mEvent.Event{Player: "happypuppy", Action: mEvent.ACTION_END_TURN, Cards: []mCard.Card{}}
+	_ = eng.RegisterEvent(ev, &state)
+
+	endHand := state.GetHand("happypuppy")
+	endPlay := state.GetPlay()
+	endStats := state.GetPlayerStats("happypuppy")
+
+	if len(endHand) != 0 {
+		t.Errorf("Expected 0 cards in hand but got %d", len(endHand))
+	}
+	if len(endPlay) != 0 {
+		t.Errorf("Expected 0 cards in play but got %d", len(endPlay))
+	}
+	if endStats[0] != 0 {
+		t.Errorf("Expected 0 actions for player happypuppy but got %d", endStats[0])
+	}
+	if endStats[1] != 0 {
+		t.Errorf("Expected 0 buys for player happypuppy but got %d", endStats[1])
+	}
+	if endStats[2] != 0 {
+		t.Errorf("Expected 0 coins for player happypuppy but got %d", endStats[2])
+	}
+
+	nextPlayerStats := state.GetPlayerStats("sadpuppy")
+
+	if nextPlayerStats[0] != 0 {
+		t.Errorf("Expected 0 actions for player sadpuppy but got %d", nextPlayerStats[0])
+	}
+	if nextPlayerStats[1] != 0 {
+		t.Errorf("Expected 0 buys for player sadpuppy but got %d", nextPlayerStats[1])
+	}
+	if nextPlayerStats[2] != 0 {
+		t.Errorf("Expected 0 coins for player sadpuppy but got %d", nextPlayerStats[2])
+	}
+
+	eng.RegisterPlayerTurnStart("sadpuppy", &state)
+
+	drawCards2 := []mCard.Card{}
+	drawCards2 = append(drawCards2, mCard.NewCards("Copper", 2)...)
+	drawCards2 = append(drawCards2, mCard.NewCards("Estate", 3)...)
+	ev = mEvent.Event{Player: "sadpuppy", Action: mEvent.ACTION_DRAW, Cards: drawCards2}
+	_ = eng.RegisterEvent(ev, &state)
+
+	nextPlayerStats = state.GetPlayerStats("sadpuppy")
+
+	if nextPlayerStats[0] != 1 {
+		t.Errorf("Expected 1 action for player sadpuppy but got %d", nextPlayerStats[0])
+	}
+	if nextPlayerStats[1] != 1 {
+		t.Errorf("Expected 1 buy for player sadpuppy but got %d", nextPlayerStats[1])
+	}
+	if nextPlayerStats[2] != 0 {
+		t.Errorf("Expected 0 coins for player sadpuppy but got %d", nextPlayerStats[2])
+	}
 
 }

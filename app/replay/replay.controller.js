@@ -18,8 +18,18 @@ angular.module('dominionReplayApp')
 .controller('ReplayController', ['$scope', '$state', '$stateParams', 'mySocket', 
                                   function($scope, $state, $stateParams, mySocket) {
   $scope.message = 'Hello';
+  console.log("!!!!!!!!!!!!!!!");
+  console.log(parseInt($stateParams.turn));
+  console.log(mySocket.socket.readyState == SockJS.OPEN)
+  mySocket.send('testtttt');
   if(mySocket.socket.readyState == SockJS.OPEN){
-    mySocket.send(JSON.stringify({turn: $stateParams.turn}));
+    // mySocket.send(JSON.stringify({turn: $stateParams.turn}));
+    console.log("trying to send new json data, sockjs.open true");
+    // mySocket.send(JSON.stringify({
+    //   mtype: "turn", 
+    //   mdata: {num: 7, pnum: 0}
+    // }));
+    mySocket.send('testtttt');
   }
   console.log("--- Showing Turn " + $stateParams.turn + " ---");
   mySocket.setHandler('open', function() {

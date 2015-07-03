@@ -4,7 +4,7 @@ import (
 	// "fmt"
 	mCard "github.com/hmuar/dominion-replay/card"
 	mEngine "github.com/hmuar/dominion-replay/engine"
-	mEvent "github.com/hmuar/dominion-replay/event"
+	// mEvent "github.com/hmuar/dominion-replay/event"
 	mHistory "github.com/hmuar/dominion-replay/history"
 	mState "github.com/hmuar/dominion-replay/state"
 )
@@ -14,6 +14,10 @@ import (
 // turn 0 is start of game
 type Game struct {
 	states []mState.State
+}
+
+func (g *Game) GetState(turnNum int, playerTurn int) mState.State {
+	return g.states[turnNum]
 }
 
 func NewGameBuilder() gameBuilder {
@@ -33,8 +37,12 @@ type gameBuilder struct {
 	state *mState.State
 }
 
+func (gb *gameBuilder) GetGame() Game {
+	return gb.game
+}
+
 func (gb *gameBuilder) FeedHistory(h mHistory.History) {
-	h.Print()
+	// h.Print()
 	gb.registerInitHistory(h)
 	for _, turn := range h.Turns {
 		gb.registerTurnStart(turn.GetTurnNum())
@@ -46,10 +54,9 @@ func (gb *gameBuilder) FeedHistory(h mHistory.History) {
 				// fmt.Println(ev)
 				gb.eng.RegisterEvent(ev, gb.state)
 			}
-			gb.registerPlayerTurnEnd(player)
+			// gb.state.PrintPlayers()
+			gb.game.states = append(gb.game.states, *gb.state)
 		}
-		gb.state.Print()
-		return
 	}
 }
 
@@ -65,6 +72,9 @@ func (gb *gameBuilder) registerInitHistory(h mHistory.History) {
 	initDraw = append(initDraw, mCard.NewCards("Copper", 7)...)
 	initDraw = append(initDraw, mCard.NewCards("Estate", 3)...)
 	for _, player := range h.PlayerOrder {
+		initDraw = []mCard.Card{}
+		initDraw = append(initDraw, mCard.NewCards("Copper", 7)...)
+		initDraw = append(initDraw, mCard.NewCards("Estate", 3)...)
 		gb.registerInitDraw(player, initDraw)
 	}
 }
@@ -83,15 +93,7 @@ func (gb *gameBuilder) registerInitDraw(player string,
 }
 
 func (gb *gameBuilder) registerPlayerTurnStart(player string) {
-	gb.state.TurnPlayer = player
-}
-
-func (gb *gameBuilder) registerPlayerTurnEnd(player string) {
-	endEvent := mEvent.Event{Player: player,
-		Action: mEvent.ACTION_END_TURN,
-		Cards:  []mCard.Card{},
-	}
-	gb.eng.RegisterEvent(endEvent, gb.state)
+	gb.eng.RegisterPlayerTurnStart(player, gb.state)
 }
 
 func (gb *gameBuilder) registerTurnStart(num int) {

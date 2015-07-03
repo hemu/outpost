@@ -92,6 +92,97 @@ func TestSavePlayerTurn(t *testing.T) {
 	}
 }
 
+// Does an end turn event get correctly added?
+func TestEndTurnEvent(t *testing.T) {
+	hb := NewHistoryBuilder()
+
+	hb.StartPlayerTurn("homer", 1)
+	drawCards := mCard.NewCards("Copper", 3)
+	drawCards = append(drawCards, mCard.NewCards("Estate", 2)...)
+	hb.AddEvent("homer", mEvent.ACTION_DRAW, drawCards)
+	playCards := mCard.NewCards("Copper", 3)
+	hb.AddEvent("homer", mEvent.ACTION_PLAY, playCards)
+
+	hb.StartPlayerTurn("apu", 1)
+	drawCards = append(drawCards, mCard.NewCards("Estate", 2)...)
+	hb.AddEvent("apu", mEvent.ACTION_DRAW, drawCards)
+
+	turn1 := hb.getCurTurn()
+	playerEvents := turn1.GetPlayerEvents(0)
+
+	// first event should be draw
+	firstEv := playerEvents[0]
+	if firstEv.Action != mEvent.ACTION_DRAW {
+		t.Errorf("Expected first player event to be '%v' but got '%v'",
+			mEvent.ACTION_DRAW, firstEv.Action)
+	}
+	// last event should be player end turn
+	lastEv := playerEvents[len(playerEvents)-1]
+	if lastEv.Action != mEvent.ACTION_END_TURN {
+		t.Errorf("Expected last player event to be '%v' but got '%v'",
+			mEvent.ACTION_END_TURN, lastEv.Action)
+	}
+	if lastEv.Player != "homer" {
+		t.Errorf("Expected last event player to be homer but got %v",
+			lastEv.Player)
+	}
+	otherPlayerEvents := turn1.GetPlayerEvents(1)
+	// last event should not be player end turn yet
+	lastEv = otherPlayerEvents[len(otherPlayerEvents)-1]
+	if lastEv.Action == mEvent.ACTION_END_TURN {
+		t.Errorf("Did not expect last player event to be '%v' but got '%v'",
+			mEvent.ACTION_END_TURN, lastEv.Action)
+	}
+	if lastEv.Player != "apu" {
+		t.Errorf("Expected last event player to be apu but got %v",
+			lastEv.Player)
+	}
+
+	hb.StartPlayerTurn("homer", 2)
+	drawCards = mCard.NewCards("Copper", 3)
+	drawCards = append(drawCards, mCard.NewCards("Estate", 2)...)
+	hb.AddEvent("homer", mEvent.ACTION_DRAW, drawCards)
+	playCards = mCard.NewCards("Copper", 3)
+	hb.AddEvent("homer", mEvent.ACTION_PLAY, playCards)
+
+	hb.StartPlayerTurn("apu", 2)
+	drawCards = append(drawCards, mCard.NewCards("Estate", 2)...)
+	hb.AddEvent("apu", mEvent.ACTION_DRAW, drawCards)
+
+	turn2 := hb.getCurTurn()
+	playerEvents = turn2.GetPlayerEvents(0)
+
+	// first event should be draw
+	firstEv = playerEvents[0]
+	if firstEv.Action != mEvent.ACTION_DRAW {
+		t.Errorf("Expected first player event to be '%v' but got '%v'",
+			mEvent.ACTION_DRAW, firstEv.Action)
+	}
+	// last event should be player end turn
+	lastEv = playerEvents[len(playerEvents)-1]
+	if lastEv.Action != mEvent.ACTION_END_TURN {
+		t.Errorf("Expected last player event to be '%v' but got '%v'",
+			mEvent.ACTION_END_TURN, lastEv.Action)
+	}
+	if lastEv.Player != "homer" {
+		t.Errorf("Expected last event player to be homer but got %v",
+			lastEv.Player)
+	}
+
+	otherPlayerEvents = turn2.GetPlayerEvents(1)
+	// last event should not be player end turn yet
+	lastEv = otherPlayerEvents[len(otherPlayerEvents)-1]
+	if lastEv.Action == mEvent.ACTION_END_TURN {
+		t.Errorf("Did not expect last player event to be '%v' but got '%v'",
+			mEvent.ACTION_END_TURN, lastEv.Action)
+	}
+	if lastEv.Player != "apu" {
+		t.Errorf("Expected last event player to be apu but got %v",
+			lastEv.Player)
+	}
+
+}
+
 func TestAddEvent(t *testing.T) {
 	hb := NewHistoryBuilder()
 	hb.StartPlayerTurn("homer", 1)

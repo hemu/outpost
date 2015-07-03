@@ -58,11 +58,29 @@ func (s *State) Print() {
 	fmt.Println("------------------")
 }
 
+func (s *State) PrintPlayers() {
+	fmt.Println("-------------------")
+	fmt.Printf("[TurnNum]: %d\n", s.TurnNum)
+	fmt.Printf("[TurnPlayer]: %v\n", s.TurnPlayer)
+	for name, player := range s.Players {
+		fmt.Printf("[Player %v]\n", name)
+		fmt.Printf("  [A,B,C,V]: [%d,%d,%d,%d]\n",
+			player.Action,
+			player.Buy,
+			player.Coin,
+			player.Victory)
+		fmt.Printf("  [Hand]: %v\n", player.Hand)
+		fmt.Printf("  [Draw]: %v\n", player.Draw)
+		fmt.Printf("  [Discard]: %v\n", player.Discard)
+		fmt.Printf("  [Duration]: %v\n", player.Duration)
+	}
+}
+
 func removeFromCards(removeCard mCard.Card, cards []mCard.Card) ([]mCard.Card, error) {
 	for i, card := range cards {
 		if card.Name == removeCard.Name {
-			cards = append(cards[:i], cards[i+1:]...)
-			return cards, nil
+			prunedCards := append(cards[:i], cards[i+1:]...)
+			return prunedCards, nil
 		}
 	}
 	return cards, errors.New(fmt.Sprintf("Could not find %v in cards", removeCard.Name))
@@ -119,12 +137,11 @@ func (s *State) GetHand(player string) []mCard.Card {
 
 func (s *State) RemoveFromDraw(player string, cards []mCard.Card) {
 	p, _ := s.getPlayer(player)
+	remainCards := p.Draw
 	for _, card := range cards {
-		remainCards, err := removeFromCards(card, p.Draw)
-		if err == nil {
-			p.Draw = remainCards
-		}
+		remainCards, _ = removeFromCards(card, remainCards)
 	}
+	p.Draw = remainCards
 }
 
 func (s *State) SetDraw(player string, cards []mCard.Card) {
@@ -132,6 +149,11 @@ func (s *State) SetDraw(player string, cards []mCard.Card) {
 	if exists {
 		p.Draw = cards
 	}
+}
+
+func (s *State) GetDraw(player string) []mCard.Card {
+	p, _ := s.getPlayer(player)
+	return p.Draw
 }
 
 func (s *State) AddToDraw(player string, cards []mCard.Card) {
@@ -158,8 +180,16 @@ func (s *State) AddDiscardCard(player string, card mCard.Card) {
 	}
 }
 
+func (s *State) GetPlay() []mCard.Card {
+	return s.Board.Play
+}
+
 func (s *State) AddPlay(card mCard.Card) {
 	s.Board.Play = append(s.Board.Play, card)
+}
+
+func (s *State) SetPlay(cards []mCard.Card) {
+	s.Board.Play = cards
 }
 
 func (s *State) RemoveFromHand(card mCard.Card) error {
@@ -175,8 +205,21 @@ func (s *State) RemoveFromHand(card mCard.Card) error {
 	}
 }
 
-func (s *State) GetPlay() []mCard.Card {
-	return s.Board.Play
+func (s *State) ClearPlayerStats(player string) {
+	p, exists := s.getPlayer(player)
+	if exists {
+		p.Action = 0
+		p.Buy = 0
+		p.Coin = 0
+	}
+}
+
+func (s *State) ResetPlayerStats(player string) {
+	p, exists := s.getPlayer(player)
+	if exists {
+		p.Action = 1
+		p.Buy = 1
+	}
 }
 
 func (s *State) GetPlayerStats(player string) [4]int {
