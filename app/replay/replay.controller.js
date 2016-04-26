@@ -2,6 +2,7 @@
 
 angular.module('dominionReplayApp')
 .factory('mySocket', function (socketFactory) {
+  // return socketFactory();
   return socketFactory({
     url: 'http://localhost:3000/echo'
   });
@@ -20,43 +21,46 @@ angular.module('dominionReplayApp')
   $scope.message = 'Hello';
   console.log("!!!!!!!!!!!!!!!");
   console.log(parseInt($stateParams.turn));
-  console.log(mySocket.socket.readyState == SockJS.OPEN)
-  mySocket.send('testtttt');
-  if(mySocket.socket.readyState == SockJS.OPEN){
-    // mySocket.send(JSON.stringify({turn: $stateParams.turn}));
-    console.log("trying to send new json data, sockjs.open true");
-    // mySocket.send(JSON.stringify({
-    //   mtype: "turn", 
-    //   mdata: {num: 7, pnum: 0}
-    // }));
-    mySocket.send('testtttt');
-  }
-  console.log("--- Showing Turn " + $stateParams.turn + " ---");
-  mySocket.setHandler('open', function() {
-    console.log("opened event");
-    mySocket.send(JSON.stringify({
-      mtype: "turn", 
-      mdata: {num: parseInt($stateParams.turn), pnum: 0}
-    }));
-    // mySocket.send(JSON.stringify({mtype: "turn"}));
-  });
-  mySocket.setHandler('message', function(msg) {
-    console.log("server sent a message:");
-    console.log(msg);
-  });
-  $scope.prevTurn = function(){
-    var curTurn = parseInt($stateParams.turn)
-    var prevTurn = curTurn - 1
-    if(prevTurn > 0){
-      $state.transitionTo('replay', {turn: prevTurn});
-    }
-  };
-  $scope.nextTurn = function(){
-    var curTurn = parseInt($stateParams.turn)
-    var nextTurn = curTurn + 1
-    $state.transitionTo('replay', {turn: nextTurn});
-    // $stateProvider.go('replay')
-  };
+  // console.log(mySocket.socket.readyState == SockJS.OPEN)
+  mySocket.emit('testtttt');
+  // if(mySocket.socket.readyState == SockJS.OPEN){
+  //   // mySocket.send(JSON.stringify({turn: $stateParams.turn}));
+  //   console.log("trying to send new json data, sockjs.open true");
+  //   mySocket.send(JSON.stringify({
+  //     mtype: "turn", 
+  //     mdata: {num: 7, pnum: 0}
+  //   }));
+  //   // mySocket.send('testtttt');
+  // }
+  // else {
+  //   console.log("sockjs not open");
+  // }
+  // console.log("--- Showing Turn " + $stateParams.turn + " ---");
+  // mySocket.setHandler('open', function() {
+  //   console.log("opened event");
+  //   mySocket.send(JSON.stringify({
+  //     mtype: "turn",
+  //     mdata: {num: parseInt($stateParams.turn), pnum: 0}
+  //   }));
+  //   mySocket.send(JSON.stringify({mtype: "turn"}));
+  // });
+  // mySocket.setHandler('message', function(msg) {
+  //   console.log("server sent a message:");
+  //   console.log(msg);
+  // });
+  // $scope.prevTurn = function(){
+  //   var curTurn = parseInt($stateParams.turn)
+  //   var prevTurn = curTurn - 1
+  //   if(prevTurn > 0){
+  //     $state.transitionTo('replay', {turn: prevTurn});
+  //   }
+  // };
+  // $scope.nextTurn = function(){
+  //   var curTurn = parseInt($stateParams.turn)
+  //   var nextTurn = curTurn + 1
+  //   $state.transitionTo('replay', {turn: nextTurn});
+  //   // $stateProvider.go('replay')
+  // };
 }]);
 
 // myApp.config(function($stateProvider, $urlRouterProvider) {

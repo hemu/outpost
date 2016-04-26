@@ -5,6 +5,7 @@ import (
 	mLogParse "github.com/hmuar/dominion-replay/logparse"
 	// "github.com/gorilla/mux"
 	"encoding/json"
+	"github.com/googollee/go-socket.io"
 	mGame "github.com/hmuar/dominion-replay/game"
 	mMsg "github.com/hmuar/dominion-replay/message"
 	mState "github.com/hmuar/dominion-replay/state"
@@ -74,8 +75,33 @@ func main() {
 	router.Handler(
 		"GET",
 		"/echo/*subpath",
-		sockjs.NewHandler("/echo", sockjs.DefaultOptions, socketMsgHandler),
+		// sockjs.NewHandler("/echo", sockjs.DefaultOptions, socketMsgHandler),
 	)
+
+	server, err := socketio.NewServer(nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	server.On("connection", func(so socketio.Socket) {
+		log.Println("on connection")
+		so.Join("chat")
+		so.On("chat message", func(msg string) {
+			log.Println("emit:", so.Emit("chat message", msg))
+			so.BroadcastTo("chat", "chat message", msg)
+		})
+		so.On("disconnection", func() {
+			log.Println("on disconnect")
+		})
+	})
+	server.On("error", func(so socketio.Socket, err error) {
+		log.Println("error:", err)
+	})
+
+	// http.Handle("/socket.io/", server)
+	// http.Handle("/", http.FileServer(http.Dir("./asset")))
+	// log.Println("Serving at localhost:5000...")
+	// log.Fatal(http.ListenAndServe(":5000", nil))
+
 	// root page request
 	router.GET("/", indexHandler)
 	log.Println("Listening on :3000")
